@@ -1,0 +1,409 @@
+ion-content{
+    --background: black;
+}
+ion-card {
+    margin: 5px;
+}
+ion-card> ion-card-content {
+    margin-left: 0px;
+}
+ion-card> ion-card-content > ion-item {
+    margin-left: 0px;
+}
+ion-card> ion-card-content > ion-item > ion-item {
+    margin-left: 0px;
+    max-width: 25%;
+}
+.promo{
+    background: red;
+    color: white;
+    padding: 3px;
+    margin-left: 5px;
+    font-weight: 800;
+}
+.header-content{
+    ion-menu-button{
+        //--background:#1b7e0d;
+        color: #1b7e0d;
+    }
+
+    .image-header img{
+        min-width: 70px;
+    }
+}
+
+.grid-detail-produit{
+    height: 100vh;
+    color:white;
+
+    .grid-main-col{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .grid-title{
+      //  background-image: url('../../../assets/img/detail_produit_fond_img.jpg');
+        height: 15r0px;
+        //margin-top:25px;
+        //background: gold;
+        align-items: center;
+        justify-content: center;
+
+        img{
+            height: 120px;
+            width: 120px;
+            border-radius: 50%;
+        }
+    }
+
+    //ligne du nom du produit et son prix 
+    .row-title-price{
+        border-bottom: 2px solid green;
+        padding-bottom: 20px;
+
+        ion-col {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .label-nomproduit{
+            font-size:22px;
+        }
+        .prix{
+            margin-top: 15px;
+        }
+    }
+
+    .grid-title-content{
+       background: green;
+        //opacity: 0.8;
+        position: absolute;
+        z-index: 1;
+        width: 100%;
+        height: 200px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 26px;
+    }
+
+    .grid-content{
+        margin-top: 20px;
+    }
+
+    //ligne des ingrédiants à pizza
+    .row-ingredient-pizza{
+
+        .col-ingredient-pizza{
+            display: flex;
+            flex-direction: column;
+
+            .row-data{
+                background: #393c3d;
+                height:auto;
+                margin-top: 20px;
+                margin-bottom: 20px;
+                display: flex;
+                flex-direction: column;
+
+                ion-row{
+                    min-height: 50px;
+                    height: auto;
+                }
+            }
+
+            .row-title{
+                font-size:18px;
+                padding:10px;
+                padding-bottom: 20px;
+                text-align: left;
+                align-items: center;
+            }
+            .aretirer{
+                 margin-top: 15px;
+                 .row-title{
+                     margin-bottom: 10px;
+                 }
+            }
+
+            .row-ingredients-data{
+                display: flex;
+                flex-direction: column;
+                
+                font-size: 14px;
+                ion-label{
+                    margin-left: 10px;
+                    padding-bottom:5px;
+                }
+            }
+
+            //cxheckbox pour choix d'ingrédients à retirer
+            .options-row-checkbox{
+                margin-top: -10px;
+                ion-checkbox{
+                    margin-left:10px;
+                }
+                ion-label{
+                    margin-left:5px;
+                }
+            }
+        }
+    }
+
+
+
+    //----ligne des tailles, garnitures, pates et sauces
+    .row-taille-garniture-pate-sauce{
+
+        .col-taille-garniture-pate-sauce{
+            .row-data{
+                background: #393c3d;
+                margin-top: 20px;
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+
+                ion-row{
+                    height: auto;
+                    --width: 100%;
+                    margin-top:10px;
+                    --background: lightgreen;
+                    min-width: 100%;
+                }
+
+                ion-item{
+                    --color: white;
+                    --background: #393c3d;
+                    min-width: 100%;
+                }
+            }
+        }
+
+    }
+
+    //-- ligne quantité - bouton ajouter au panier
+    .row-quantite-btn-ajouter{
+        height:70px;
+        margin-top: 15px;
+        padding-top:10px;
+        border-top: 2px solid green;
+
+        display: flex;
+        flex-direction: row;
+
+        .col-quantite, .col-btn{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
+        .col-quantite{
+            .add-remove-input{
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                min-width: 150px;
+                
+            }
+
+            ion-input {
+                --background: #393c3d;
+                margin-left: 5px;
+                width: 60px;
+                text-align: center;
+            }               
+
+            .addquantite{
+                background: green;
+                padding: 5px;
+                border-radius: 50%;
+                margin-left: 10px;
+                min-width: 15px;
+            }
+            .removequantite{
+                background: red;
+                padding: 5px;
+                border-radius: 50%;
+                margin-left: 5px;
+                min-width: 15px;
+            }
+        }
+
+        .col-btn{
+            ion-button{
+                --color: white;
+                --background: #1b7e0d;
+                width: 100%;
+            }
+            .btn-voir-panier{
+                --background: green;
+                color:#1d2326;
+            }
+        }
+
+        .col-montant{
+            display: flex;
+            align-items: center;
+            .input-montant{
+                margin-left: 35px;
+                background: #393c3d;
+                max-width: 80px;
+            }
+        }
+    }
+
+}
+
+.ionselect{
+    width: 70%;
+    ion-select-option{
+        background: lightgreen;
+        width: 300px!important;
+        --color: red;
+        --background: gold;
+        --background-color: black;
+        background-color: brown;
+    }
+}
+
+.backgroundoptions{
+    background: lightgreen;
+        width: 300px!important;
+        --color: red;
+        --background: gold;
+        --background-color: black;
+        background-color: brown;
+}
+.my-class .ionselectoptions{
+    background: lightgreen;
+        min-width: 300px!important;
+        --color: red;
+        --background: gold;
+        --background-color: black;
+        background-color: brown;
+}
+
+//div des suppléments des articles
+.supplements-div, .aretirer-div{
+    //background: rgb(119, 153, 119);
+    .subtitle{
+        font-size: 1.3em;
+        padding-bottom: 15px;
+        width: 100%;
+        text-align: center;
+        // background: rgba(3, 197, 3, 0.178);
+        background: #477E09;
+    }
+
+    ion-list{
+        //background: rgba(3, 197, 3, 0.178);
+        background: #393c3d;
+        ion-item{
+            //--background: rgba(3, 197, 3, 0.178);
+            --background: #393c3d;
+            --color: white;
+        }
+    }
+    .ionitem-data{
+        border-bottom: 1px solid green;
+        background: #020202;
+        max-height: 30px;
+        display: flex;
+        align-items: center;
+        width: auto;
+        margin-top: 0px;
+        font-size: 1em;
+
+        ion-icon{
+            font-size: 1.1em;
+        }
+    }
+}
+
+ion-card {
+    position: relative;
+    text-align: center;
+    background:#393C3D;
+  }
+
+.white-group-title {
+    position: relative;
+    top: 36%;
+    font-size: 1.5em;
+    width: 100%;
+    font-weight: bold;
+    color: #fff;
+    padding-bottom: 15px;
+    text-align: center;
+  }
+
+  .black-group-title {
+    position: relative;
+    top: 2%;
+    font-size: 1.5em;
+    width: 100%;
+    font-weight: bold;
+    color: white;
+    padding-bottom: 2px;
+    text-align: center;
+        // background: rgba(3, 197, 3, 0.178);
+    background: #477E09;
+  }
+
+  .white-group-subtitle {
+    position: relative;
+    top: 36%;
+    font-size: 1.5em;
+    width: 100%;
+    font-weight: bold;
+    color: #fff;
+    padding-bottom: 15px;
+    text-align: center;
+  }
+
+  .black-group-subtitle {
+    position: relative;
+    top: 0px;
+    font-size: 1.2em;
+    width: 100%;
+    font-weight: bold;
+    // color: white;
+    color: #477E09;
+    padding-bottom: 0px;
+    text-align: center;
+        // background: rgba(3, 197, 3, 0.178);
+    // background: #477E09;
+    --background:#393C3D;
+   
+  }
+
+ion-card-title {
+    position: relative;
+    top: 36%;
+    font-size: 2.0em;
+    width: 100%;
+    font-weight: bold;
+    color: #fff;
+  }
+
+ion-card-subtitle {
+    font-size: 1.0em;
+    position: relative;
+    top: 52%;
+    width: 100%;
+    color: #fff;
+  }
+
+.ion-card-item {
+    color:white;
+    // --background:#477E09;
+    --background:#393C3D;
+  }
+
+.item-divider {
+    color: #477E09;
+    padding: 0px;
+}

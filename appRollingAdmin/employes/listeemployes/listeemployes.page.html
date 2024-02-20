@@ -1,0 +1,60 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <div class="header-wrapper">
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-col size="10">
+        <img src="../../../assets/icon/logo.png">
+      </ion-col>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-fab vertical="bottom" horizontal="center">
+    <ion-fab-button routerLink="../ajouteremployer">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <div class="container">
+
+    <ion-grid class="table-data table-business">
+
+      <ion-row class="table-title-grid title-produits">
+        <ion-col size="12">Liste des employés</ion-col>
+      </ion-row>
+
+      <ion-row class="table-header header-produits">
+        <ion-col size="4" size-md="4" size-sm="4" size-xs="4">Nom</ion-col>
+        <ion-col size="3" size-md="3" size-sm="3" size-xs="3">Prénom</ion-col>
+        <ion-col size="3" size-md="3" size-sm="3" size-xs="3">Statut</ion-col>
+        <ion-col size="2" size-md="2" size-sm="2" size-xs="2">Actions</ion-col>
+      </ion-row>
+
+      <ion-row class="table-row-data-produits" *ngFor="let employe of allEmployes">
+        <ion-col size="4" size-md="4" size-sm="4" size-xs="4" (click)="goDetail(employe)">
+          {{employe.nomemploye}}
+        </ion-col>
+        <ion-col size="3" size-md="3" size-sm="3" size-xs="3" (click)="goDetail(employe)">
+          {{employe.prenomemploye}}
+        </ion-col>
+        <ion-col size="3" size-md="3" size-sm="3" size-xs="3" (click)="goDetail(employe)">
+          <span *ngIf="employe.isadmin == 1">Admin</span>
+          <span *ngIf="employe.isadmin == 0">Employé</span>
+        </ion-col>
+        <ion-col size="1" size-md="1" size-sm="1" size-xs="1" (click)="update(employe)">
+          <ion-icon  icon-only name="construct" style="color:darkgreen;"></ion-icon>
+        </ion-col>
+        <ion-col size="1" size-md="1" size-sm="1" size-xs="1">
+          <ion-icon color="danger" (click)="deleteAlert(employe.idemploye, employe.nomemploye, employe.prenomemploye)" name="trash-outline" style="color: brown;"></ion-icon>
+        </ion-col>
+      </ion-row>
+
+    </ion-grid>
+
+  </div>
+
+</ion-content>

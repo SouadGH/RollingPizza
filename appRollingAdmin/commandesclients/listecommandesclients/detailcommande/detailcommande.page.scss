@@ -1,0 +1,105 @@
+body {
+    font-family: 'lato', sans-serif;
+  }
+  //header
+  ion-header{
+  --ion-background-color:white !important;
+    img{
+        height: 50px;
+        width: 100px;
+    }
+    
+    .header-wrapper{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        ion-col{
+            display: flex;
+            justify-content: center;
+        }
+        ion-badge{
+            height: 20px;
+        }
+    }
+  }
+  //----------------------------------------------
+  
+ion-content{
+    height: 100vh;
+    width: 100%;
+    --background: #f8f8f8;
+}
+
+ion-card-header{
+    font-weight: bold;
+    font-size: 18px;
+}
+
+ion-card-body{
+    ion-row{
+        padding:3px;
+        padding-bottom: 5px;
+        margin-left: 15px;
+    }
+}
+
+.total-commande{
+    justify-content: right;
+    
+    span{
+        padding: 10px;
+        font-weight: bold ;
+        font-size: 16px;
+    }
+}
+
+// titre des cards : 
+.card-header:first-child {
+    border-radius: calc(.35rem - 1px) calc(.35rem - 1px) 0 0;
+  }
+    
+  .pb-3, .py-3 {
+    padding-bottom: 1rem!important;
+  }
+    
+  .pt-3, .py-3 {
+    padding-top: 1rem!important;
+  }
+  
+  .card-header {
+    padding: .75rem 1.25rem;
+    margin-bottom: 0;
+    background-color: #f8f9fc;
+    border-bottom: 1px solid #e3e6f0;
+  }
+
+  .text-primary {
+    color: #4e73df!important;
+  }
+  
+  .font-weight-bold {
+    font-weight: 700!important;
+  }
+  
+  .m-0 {
+    margin: 0!important;
+  }
+  //---------------------------------
+
+// tableau des produits de la commandes : 
+.card-produits{
+    ion-row{
+        border-bottom: 1px solid #e3e6f0;
+    }
+
+    .th{
+        padding: .35rem;
+        border-bottom: 1px solid #e3e6f0;
+        color: #696970;
+        font-weight: bold;
+
+        ion-col{
+            align-items: center;
+        }
+    }
+}

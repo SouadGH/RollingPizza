@@ -1,0 +1,215 @@
+<ion-content>
+  <div class="header-wrapper">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Commandes clients </ion-title>
+
+  <ion-fab vertical="right" horizontal="end">
+    <ion-fab-button (click)="refresh()">
+      <ion-icon name="refresh"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  </div>
+
+  <!-- Fab button : bouton pour l'ajout d'un nouveau type de produit ---
+        Ce bouton renvoie à un formulaire se trouvant dans une page à part -->
+
+  <div class="container">
+
+    <ion-grid class="table-data table-business">
+
+      <ion-row class="table-header header-commandes-live">
+        <ion-col size="4" size-md="4" size-sm="4" size-xs="4">Commandes payées</ion-col>
+        <ion-col size="4" size-md="4" size-sm="4" size-xs="4">Commandes non payées</ion-col>
+        <ion-col size="4" size-md="4" size-sm="4" size-xs="4">Commandes non traitées</ion-col>
+        
+      </ion-row>
+
+      <ion-row class="table-row-data table-row-data-commandes-live">
+        <!-- commandes payees-->
+        <ion-col class="col-liste-commandes" size="4" size-md="4" size-sm="4" size-xs="4">
+         
+          <ion-row name="allCommandesPayees" *ngFor="let commandePayee of allCommandesPayees; let i = index">
+            <ion-card class="card-payee" (click)="updateStatut(commandePayee)">
+
+ 
+              <ion-row *ngIf="commandePayee.idtypeclient ==0" style="font-weight: bold;">
+                
+                 <span style="float: right;" (click)="adresselivraisonCommandesPayees(i)">
+                 
+                    <ion-icon (click)="adresselivraisonCommandesPayees(i)" name="location" ></ion-icon>             
+                </span>
+              
+                <span style="float: left;">   N°: {{commandePayee.idcom}} </span>
+            
+               </ion-row>             
+               <ion-row *ngIf="commandePayee.idtypeclient ==0" style="font-weight: bold;">
+                <span style="float: left;">  {{commandePayee.dateheurecom}} </span>
+              </ion-row>             
+          
+             
+              <ion-row *ngIf="commandePayee.idtypeclient ==1" style="font-weight: bold;">
+                <span style="float: left;">
+                  <!-- <img src="../../assets/img/th.jpeg"/>-->
+                  <img [src]="path.concat(pathimage(commandePayee.demandeur))" /> </span>
+                <span style="float: right;"> N°: {{commandePayee.idclient}} </span></ion-row>
+
+              <ion-row *ngFor="let produit of commandePayee.listeProduits; let j = index">
+                <p style="font-weight: bold;">{{produit.quantiteproduit}} {{produit.taille}} .</p>
+                <p> {{produit.nomproduit}} :</p>
+                <!--affichage des supplements-->
+                <ion-col small size="12" size-md="12" size-sm="12" size-xs="12" *ngIf="produit.listeSupplements.length>0">
+                  <p  style="font-weight: bold;">A ajouter :</p></ion-col>
+                <ion-col small size="12" size-md="12" size-sm="12" size-xs="12"
+                  *ngFor="let supplement of produit.listeSupplements; let k = index">
+                  {{supplement.nomcomposant}} </ion-col>
+                   <!--affichage des ingredients à supprimer-->
+                   <ion-col small size="12" size-md="12" size-sm="12" size-xs="12" *ngIf="produit.listeARetirer.length>0">
+                    <p  style="font-weight: bold;">A retirer:</p></ion-col>
+                <ion-col small size="12" size-md="12" size-sm="12" size-xs="12"
+                *ngFor="let retire of produit.listeARetirer; let k = index">
+                {{retire.nomcomposant}} </ion-col>
+
+
+
+
+                  <!--affichage des combos-->
+                  <ion-col small size="12" size-md="12" size-sm="12" size-xs="12"
+                  *ngFor="let combos of produit.listeIngredients; let k = index">
+                  {{combos.nomCombos}} </ion-col>
+                   <!--affichage des offres-->
+                   <ion-col small size="12" size-md="12" size-sm="12" size-xs="12"
+                   *ngFor="let offre of produit.listeOffre; let k = index">
+                   {{offre.quantiteOffre}}*{{offre.nomproduitOffre}} </ion-col>
+              </ion-row>
+            </ion-card>
+          </ion-row>
+        </ion-col>
+
+        <!-- commandes non payees-->
+        <ion-col class="col-liste-commandes" size="4" size-md="4" size-sm="4" size-xs="4">
+         
+          <ion-row name="allCommandesNonPayees" *ngFor="let commandeNonPayee of allCommandesNonPayees; let i = index">
+            <ion-card class="card-nonpayee" (click)="updateStatut(commandeNonPayee)">
+
+ 
+              <ion-row *ngIf="commandeNonPayee.idtypeclient ==0" style="font-weight: bold;">
+                
+               <!--  <span style="float: right;" (click)="adresselivraisonCommandesNonPayees(i)">
+                 
+                    <ion-icon (click)="adresselivraisonCommandesNonPayees(i)" name="location" ></ion-icon>             
+                </span>
+              -->
+                <span style="float: left;">   N°: {{commandeNonPayee.idcom}} </span>
+            
+               </ion-row>             
+               <ion-row *ngIf="commandeNonPayee.idtypeclient ==0" style="font-weight: bold;">
+                <span style="float: left;">  {{commandeNonPayee.dateheurecom}} </span>
+              </ion-row>             
+          
+             
+              <ion-row *ngIf="commandeNonPayee.idtypeclient ==1" style="font-weight: bold;">
+                <span style="float: left;">
+                  <!-- <img src="../../assets/img/th.jpeg"/>-->
+                  <img [src]="path.concat(pathimage(commandeNonPayee.demandeur))" /> </span>
+                <span style="float: right;"> N°: {{commandeNonPayee.idclient}} </span></ion-row>
+
+              <ion-row *ngFor="let produit of commandeNonPayee.listeProduits; let j = index">
+                <p style="font-weight: bold;">{{produit.quantiteproduit}} {{produit.taille}} .</p>
+                <p> {{produit.nomproduit}} :</p>
+                <!--affichage des supplements-->
+                <ion-col small size="12" size-md="12" size-sm="12" size-xs="12" *ngIf="produit.listeSupplements.length>0">
+                  <p  style="font-weight: bold;">A ajouter :</p></ion-col>
+                <ion-col small size="12" size-md="12" size-sm="12" size-xs="12"
+                  *ngFor="let supplement of produit.listeSupplements; let k = index">
+                  {{supplement.nomcomposant}} </ion-col>
+                   <!--affichage des ingredients à supprimer-->
+                   <ion-col small size="12" size-md="12" size-sm="12" size-xs="12" *ngIf="produit.listeARetirer.length>0">
+                    <p  style="font-weight: bold;">A retirer:</p></ion-col>
+                <ion-col small size="12" size-md="12" size-sm="12" size-xs="12"
+                *ngFor="let retire of produit.listeARetirer; let k = index">
+                {{retire.nomcomposant}} </ion-col>
+
+
+
+
+                  <!--affichage des combos-->
+                  <ion-col small size="12" size-md="12" size-sm="12" size-xs="12"
+                  *ngFor="let combos of produit.listeIngredients; let k = index">
+                  {{combos.nomCombos}} </ion-col>
+                   <!--affichage des offres-->
+                   <ion-col small size="12" size-md="12" size-sm="12" size-xs="12"
+                   *ngFor="let offre of produit.listeOffre; let k = index">
+                   {{offre.quantiteOffre}}*{{offre.nomproduitOffre}} </ion-col>
+              </ion-row>
+            </ion-card>
+          </ion-row>
+        </ion-col>
+
+          <!-- commandes non traitees-->
+          <ion-col class="col-liste-commandes" size="4" size-md="4" size-sm="4" size-xs="4">
+         
+            <ion-row name="allCommandesNontraitees" *ngFor="let commandeNontraitee of allCommandesNontraitees; let i = index">
+              <ion-card class="card-nontraitee" (click)="updateStatut(commandeNontraitee)">
+  
+   
+                <ion-row *ngIf="commandeNontraitee.idtypeclient ==0" style="font-weight: bold;">
+                  
+                   <span style="float: right;" (click)="adresselivraisonCommandesNonTraitees(i)">
+                   
+                      <ion-icon (click)="adresselivraisonCommandesNonTraitees(i)" name="location" ></ion-icon>             
+                  </span>
+                
+                  <span style="float: left;">   N°: {{commandeNontraitee.idcom}} </span>
+              
+                 </ion-row>             
+                 <ion-row *ngIf="commandeNontraitee.idtypeclient ==0" style="font-weight: bold;">
+                  <span style="float: left;">  {{commandeNontraitee.dateheurecom}} </span>
+                </ion-row>             
+            
+               
+                <ion-row *ngIf="commandeNontraitee.idtypeclient ==1" style="font-weight: bold;">
+                  <span style="float: left;">
+                    <!-- <img src="../../assets/img/th.jpeg"/>-->
+                    <img [src]="path.concat(pathimage(commandeNontraitee.demandeur))" /> </span>
+                  <span style="float: right;"> N°: {{commandeNontraitee.idclient}} </span></ion-row>
+  
+                <ion-row *ngFor="let produit of commandeNontraitee.listeProduits; let j = index">
+                  <p style="font-weight: bold;">{{produit.quantiteproduit}} {{produit.taille}} .</p>
+                  <p> {{produit.nomproduit}} :</p>
+                  <!--affichage des supplements-->
+                  <ion-col small size="12" size-md="12" size-sm="12" size-xs="12" *ngIf="produit.listeSupplements.length>0">
+                    <p  style="font-weight: bold;">A ajouter :</p></ion-col>
+                  <ion-col small size="12" size-md="12" size-sm="12" size-xs="12"
+                    *ngFor="let supplement of produit.listeSupplements; let k = index">
+                    {{supplement.nomcomposant}} </ion-col>
+                     <!--affichage des ingredients à supprimer-->
+                     <ion-col small size="12" size-md="12" size-sm="12" size-xs="12" *ngIf="produit.listeARetirer.length>0">
+                      <p  style="font-weight: bold;">A retirer:</p></ion-col>
+                  <ion-col small size="12" size-md="12" size-sm="12" size-xs="12"
+                  *ngFor="let retire of produit.listeARetirer; let k = index">
+                  {{retire.nomcomposant}} </ion-col>
+  
+  
+  
+  
+                    <!--affichage des combos-->
+                    <ion-col small size="12" size-md="12" size-sm="12" size-xs="12"
+                    *ngFor="let combos of produit.listeIngredients; let k = index">
+                    {{combos.nomCombos}} </ion-col>
+                     <!--affichage des offres-->
+                     <ion-col small size="12" size-md="12" size-sm="12" size-xs="12"
+                     *ngFor="let offre of produit.listeOffre; let k = index">
+                     {{offre.quantiteOffre}}*{{offre.nomproduitOffre}} </ion-col>
+                </ion-row>
+              </ion-card>
+            </ion-row>
+          </ion-col>
+
+      </ion-row>
+
+    </ion-grid>
+
+  </div>
+</ion-content>

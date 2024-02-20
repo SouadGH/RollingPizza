@@ -1,0 +1,52 @@
+ion-content{
+    --background: #1d2326;
+}
+
+ion-segment{
+    --background: #1b7e0d;
+}
+ion-segment-button{
+    --color:white;
+    --background-checked:#1f990f;
+    --color-checked: white;
+}
+
+.menu-grid{
+    display: flex;
+    color: white;
+
+    .menu-grid-row{
+        display: flex;
+        width: 100%;
+        flex-direction: row;
+        align-content: space-between ;
+    }
+    .col-pizza{
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        
+        .col-pizza-content{
+            background: #393c3d;
+            padding: 10px;
+        }
+        ion-row{
+            justify-content: center;
+            margin-top: 10px;
+        }
+    
+        .col-pizza-row-picture{
+            img{
+                border-radius: 50%;
+                height: 100px;
+                width: 100px;
+            }
+        }
+    
+        .col-pizza-row-ingredients{
+            font-size: 12px;
+            text-align: center;
+        }
+    }
+}
+

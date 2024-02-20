@@ -1,0 +1,86 @@
+body {
+    font-family: 'lato', sans-serif;
+  }
+  //header
+  ion-header{
+  --ion-background-color:white !important;
+    img{
+        height: 50px;
+        width: 100px;
+    }
+    
+    .header-wrapper{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        ion-col{
+            display: flex;
+            justify-content: center;
+        }
+        ion-badge{
+            height: 20px;
+        }
+    }
+  }
+  //----------------------------------------------
+  
+  
+  ion-content{
+  --min-height: 100vh!important;
+  --height: 100vh!important;
+  --background-color: rgb(236, 236, 236);
+  }
+  
+  .header-wrapper{
+  display: flex;
+  flex-direction: row;
+  color: #b22227;
+  }
+  
+  .container {
+  width: 100%;
+  min-width: 100%;
+  //height: 100%;
+  min-height: 100%;
+  //max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+  //padding-left: 10px;
+  //padding-right: 10px;
+  padding-bottom: 30px;
+  
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  
+  background-color: rgb(236, 236, 236);
+  }
+  
+  .title-produits{
+  height: 50px;
+  background: #969696;
+  }
+  
+  .title-commandes{
+    height: 50px;
+    //background: #969696;
+    background: #fff6a8;
+    color: rgb(121, 123, 0);
+  }
+  
+  .header-commandes{
+    background: #fff6a8;
+    color: rgb(121, 123, 0);
+    padding-bottom: 5px;
+  }
+  .background-gray{
+    background-color:#f0e3e3 ;
+}
+.background-white{
+  background-color:white;
+}
+  @media only screen and (max-width: 650px) {
+    
+  }
+  
+  

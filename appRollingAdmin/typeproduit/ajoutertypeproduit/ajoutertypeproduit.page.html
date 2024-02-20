@@ -1,0 +1,68 @@
+<!-----------------------------------------------------------------------------
+* Projet : Rolling Pizza - Genève
+* Script pour l'ajout d'un nouveau business sur la plateforme Shopping Place
+* Auteur : Helvitech Dev Team - 
+* Date : 25.06.2020
+* -- Version 1.0
+* * * * * * * * * *
+* Commentaire : 
+*     - Simple formulaire à remplir par l'Admin pour ajouter un nouveau
+*             type de produit
+------------------------------------------------------------------------------->
+
+<ion-content>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-back-button defaultHref="/listeproduits"></ion-back-button>
+    </ion-buttons>
+    <ion-title></ion-title>
+  </ion-toolbar>
+  <div class="container">
+
+
+    <ion-grid class="new-form">
+      <ion-row class="header-form">
+        <ion-col size="12">Enregistrement d'un type de produit </ion-col>
+      </ion-row>
+
+      <ion-row class="data-row">
+        <ion-col class="data-row-col" size="12">
+          <ion-row class="label-data-row-col">Type de produit</ion-row>
+          <ion-row class="input-row">
+            <ion-input class="input-data-row-col" [(ngModel)]="dataNewTypeProduit.nomtypeproduit" type="text"
+              placeholder="Saisir nouveau type de produit"></ion-input>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="data-row">
+        <ion-col class="data-row-col" size="12">
+          <ion-item>
+            <ion-label>Catégorie produit</ion-label>
+            <ion-select interface="popover"
+              placeholder="Sélectionnez une option" [(ngModel)]="dataNewTypeProduit.idcategorie">
+              <ion-select-option class="alert-wrapper" value="0">Aucune catégorie</ion-select-option>
+              <ion-select-option class="alert-wrapper" *ngFor="let categorie of allCategorie"
+                value="{{categorie.idcategorie}}">
+                {{categorie.nomcategorie}}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <!-- Zone boutons -->
+      <ion-row class="data-row row-buttons">
+        <ion-col class="data-row-col" size="4" size-md="6" size-sm="12" size-xs="12">
+          <ion-button color="success" (click)="addNew()">Confirmer</ion-button>
+        </ion-col>
+        <ion-col class="data-row-col" size="4" size-md="6" size-sm="12" size-xs="12">
+          <ion-button  (click)="Annuler()" color="danger">Annuler</ion-button>
+        </ion-col>
+      </ion-row>
+
+    </ion-grid>
+
+  </div>
+
+</ion-content>

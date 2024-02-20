@@ -1,0 +1,88 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <div class="header-wrapper">
+      <ion-col size="7">
+        <img src="../../../assets/icon/logo.png">
+      </ion-col>
+      <ion-buttons slot="end">
+        
+      </ion-buttons>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="container">
+
+
+    <ion-grid class="new-form">
+      <ion-row class="header-form">
+        <ion-col size="12">Modification de votre employé </ion-col>
+      </ion-row>
+      <!--
+      <ion-row class="data-row">
+        <ion-col class="data-row-col" size="12">
+        -->
+      <ion-row class="label-data-row-col">
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="stacked">Nom</ion-label>
+            <ion-input [(ngModel)]="employe.nomemploye"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="label-data-row-col">
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="stacked">Prénom</ion-label>
+            <ion-input [(ngModel)]="employe.prenomemploye"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="label-data-row-col">
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="stacked">Code connexion</ion-label>
+            <ion-input [(ngModel)]="employe.codeemploye"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="label-data-row-col">
+        <ion-col size="12">
+          <ion-radio-group [(ngModel)]="employe.isadmin">
+            <ion-list-header>
+              <ion-label>Statut</ion-label>
+            </ion-list-header>
+        
+            <ion-item>
+              <ion-label>Administrateur</ion-label>
+              <ion-radio slot="start" value="1"></ion-radio>
+            </ion-item>
+        
+            <ion-item>
+              <ion-label>Employé</ion-label>
+              <ion-radio slot="start"  value="0"></ion-radio>
+            </ion-item>
+          </ion-radio-group>
+        </ion-col>
+      </ion-row>
+
+      <!-- Zone boutons -->
+      <ion-row class="data-row row-buttons">
+        <ion-col class="data-row-col" size="4" size-md="6" size-sm="12" size-xs="12">
+          <ion-button color="success" (click)="update()">Confirmer</ion-button>
+        </ion-col>
+        <ion-col class="data-row-col" size="4" size-md="6" size-sm="12" size-xs="12">
+          <ion-button (click)="annuler()" color="danger">Annuler</ion-button>
+        </ion-col>
+      </ion-row>
+
+    </ion-grid>
+
+  </div>
+
+</ion-content>

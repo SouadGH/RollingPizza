@@ -1,0 +1,99 @@
+.container{
+    height: 100%;
+    width: 100%;
+   // background: #1d2326;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+}
+.login100-form-title {
+    display: block;
+    font-family: Poppins-Bold;
+    font-size: 39px;
+   // color: #b22227;
+   color: #1b7e0d;
+    line-height: 1.2;
+    text-align: center;
+  }
+  .container-login100 {
+    width: 100%;  
+    min-height: 100vh;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    //background: url('https://proaugust.com/images/slider/start1.jpg');
+   // background-image: url('../../assets/img/login_background.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+  
+  .wrap-login100 {
+    width: 500px;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+//tableau pour l'enregistrement du nouveau client
+.grid-new-login{
+    background: #393c3d;
+    height: auto;
+    max-width: 650px;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    border-radius: 10px;
+
+    //titre du tableau : 
+    .grid-title{
+        padding: 15px;
+        color:white;
+        font-size: 18px;
+    }
+
+    //ligne des données à saisire
+    .row-input{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .row-input-title{
+        padding: 15px;
+        color:white;
+        font-size: 15px;
+        border-bottom: 2px solid #1b7e0d ;
+    }
+
+    .row-with-title{
+        margin-top:15px;
+    }
+
+    .row-input-content{
+        display: flex;
+        flex-direction: row;
+    }
+
+
+    .row-input-col-data{
+    }
+
+    .btn-confirmer{
+        margin-top: 35px;
+        ion-button{
+            --background: green;
+        }
+    }
+
+    ion-item{
+        --background:rgb(172, 171, 171);
+        border-radius:10px;
+    }
+}

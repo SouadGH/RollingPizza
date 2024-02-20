@@ -1,0 +1,80 @@
+<ion-content>
+  <div class="header-wrapper">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+   
+
+  <ion-fab vertical="right" horizontal="end">
+    <ion-fab-button (click)="refresh()">
+      <ion-icon name="refresh"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  </div>
+
+  <!-- Fab button : bouton pour l'ajout d'un nouveau type de produit ---
+        Ce bouton renvoie à un formulaire se trouvant dans une page à part -->
+
+
+
+  <ion-grid class="grid-client">
+
+    <ion-row>
+  
+
+    <ion-col size="12" size-sm="12" size-md="12 " size-lg="12" class="col-client-commandes">
+
+      <div class="card shadow">
+        <div class="card-header py-3">
+          <p class="text-primary m-0 font-weight-bold">Historique des commandes supprimées</p>
+        </div>
+        <div class="card-body">
+
+          <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+            <table class="table my-0" id="dataTable">
+              <thead>
+                <tr>
+                  <th>Réf.</th>
+                  <th>Date</th>
+                  <th>Heure </th>
+                  <th>Statut</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                
+             
+                <ng-container  *ngFor="let commande of allCommandesDeleted;let i =index" >
+               
+                <tr  *ngIf="i%2==0" class="background-gray" (click)="goDetail(commande)">
+
+                  <td>{{commande.idcom}}</td>
+                  <td>{{commande.datecom | date: 'dd/MM/yyyy'}}</td>
+                  <td> {{commande.dateheurecom| date: 'HH:mm'}}</td>
+                  <td>{{commande.statutcom}}</td>
+                  <td>€ {{commande.totalcom}}</td>
+                
+                </tr>
+                <tr *ngIf="i%2!=0" class="background-white" (click)="goDetail(commande)">
+                  <td>{{commande.idcom}}</td>
+                  <td>{{commande.datecom | date: 'dd/MM/yyyy'}}</td>
+                  <td> {{commande.dateheurecom| date: 'HH:mm'}}</td>
+                  <td>{{commande.statutcom}}</td>
+                  <td>€ {{commande.totalcom}}</td>
+                
+                </tr>
+              </ng-container>
+              </tbody>
+              
+            </table>
+          </div>
+          
+
+        </div>
+      </div>
+
+    </ion-col>
+    </ion-row>
+    
+  </ion-grid>
+</ion-content>

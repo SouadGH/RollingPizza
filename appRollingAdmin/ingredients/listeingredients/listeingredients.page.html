@@ -1,0 +1,51 @@
+
+<ion-content [fullscreen]="true" class="content">
+  <div class="header-wrapper">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Liste des composants de tous les produits </ion-title>
+  </div>
+
+  <!-- Fab button : bouton pour l'ajout d'un nouveau type de produit ---
+        Ce bouton renvoie à un formulaire se trouvant dans une page à part -->
+
+  <ion-fab vertical="bottom" horizontal="center">
+    <ion-fab-button routerLink="../ajouteringredient">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <div class="container">
+
+    <ion-grid class="table-data table-business" *ngFor="let composant of allComposants">    
+
+      <ion-row class="table-header header-produits">
+        <!--<ion-col size="1" >
+          <ion-icon (click)="deletetcategorieComposant(composant.categoriecomposant)" name="trash-outline" ></ion-icon>
+         </ion-col>
+        <ion-col size="1" >
+          <ion-icon  (click)="updatecategorieComposant(composant.categoriecomposant)" name="construct-outline"></ion-icon> 
+          </ion-col>-->
+        <ion-col size="12" size-md="12" size-sm="12" size-xs="12">{{composant.categoriecomposant}}</ion-col>
+        <!--<ion-col size="2" size-md="2" size-sm="2" size-xs="2">Actions</ion-col>-->
+
+      </ion-row>
+
+      <ion-row class="table-data table-business" *ngFor="let ingredient of composant.listeIngredients" >
+        <ion-col size="1" size-md="1" size-sm="1" size-xs="1" >
+          <ion-icon (click)="deletetingredient(ingredient.idcomposant)" name="trash-outline" style="color: brown;"></ion-icon>
+         </ion-col>
+        <ion-col size="1" size-md="1" size-sm="1" size-xs="1"  >
+          <ion-icon  (click)="updateingredient(ingredient.idcomposant)" name="construct-outline" style="color:darkgreen;"></ion-icon> 
+          </ion-col>
+     
+        <ion-col size="8" size-md="8" size-sm="8" size-xs="8">{{ingredient.nomcomposant}}</ion-col>      
+        <ion-col size="2" size-md="2" size-sm="2" size-xs="2">{{ingredient.prixcomposant}}</ion-col>
+      </ion-row>
+
+    </ion-grid>
+
+  </div>
+</ion-content>
+

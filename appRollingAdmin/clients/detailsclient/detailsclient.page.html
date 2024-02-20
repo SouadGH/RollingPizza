@@ -1,0 +1,178 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <div class="header-wrapper">
+      <ion-buttons slot="end">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+      <ion-col size="10">
+        <img src="../../../assets/icon/logo.png">
+      </ion-col>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="grid-client">
+
+    <ion-row>
+      <ion-col size="12" size-sm="12" size-md="4 " size-lg="4" class="col-client-infos">
+      <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <h6 class="text-primary font-weight-bold m-0">Détails client</h6>
+        </div>
+        <div class="card-body">
+          <form>
+
+            <div class="form-row icon-row">
+              <div class="col">
+                <div class="form-group">
+                  <label>
+                    <ion-icon name="person"></ion-icon>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="col">
+                <div class="form-group">
+                  <label><strong>{{client.nomclient}}</strong></label>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="col">
+                <div class="form-group">
+                  <label><strong>{{client.prenomclient}}</strong></label>
+                </div>
+              </div>
+            </div>
+
+            
+            <div class="form-row icon-row">
+              <div class="col">
+                <div class="form-group">
+                  <label>
+                    <ion-icon name="location"></ion-icon>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="col">
+                <div class="form-group">
+                  <label><strong>{{client.adresseclient}}</strong></label>
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="col">
+                <div class="form-group">
+                  <label><strong>{{client.npaclient}}</strong></label>
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="col">
+                <div class="form-group">
+                  <label><strong>{{client.villeclient}}</strong></label>
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="col">
+                <div class="form-group">
+                  <label><strong>{{client.paysclient}}</strong></label>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row icon-row">
+              <div class="col">
+                <div class="form-group">
+                  <label>
+                    <ion-icon name="call"></ion-icon> / <ion-icon name="mail"></ion-icon>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="col">
+                <div class="form-group">
+                  <label><strong>{{client.telephoneclient}}</strong></label>
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="col">
+                <div class="form-group">
+                  <label><strong>{{client.emailclient}}</strong></label>
+                </div>
+              </div>
+            </div>
+
+          </form>
+        </div>
+      </div>
+
+    </ion-col>
+
+    <ion-col size="12" size-sm="12" size-md="8 " size-lg="8" class="col-client-commandes">
+
+      <div class="card shadow">
+        <div class="card-header py-3">
+          <p class="text-primary m-0 font-weight-bold">Historique des commandes</p>
+        </div>
+        <div class="card-body">
+
+          <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+            <table class="table my-0" id="dataTable">
+              <thead>
+                <tr>
+                  <th>Réf.</th>
+                  <th>Date </th>
+                  <th>Heure </th>
+                  <th>Statut</th>
+                  <th>Total</th>
+                </tr>
+                <tr>
+                  <th><ion-searchbar #searchIdCom  (ionChange)="onSearchTerm($event)" class="header-livraison" animated="true" autocomplete="on" color="#7D7D7D" showCancelButton="focus" cancelButtonText="Custom Cancel"></ion-searchbar></th>
+                  <th><ion-searchbar #searchDate  (ionChange)="onSearchTerm($event)" class="header-livraison" animated="true" autocomplete="on" color="#7D7D7D" showCancelButton="focus" cancelButtonText="Custom Cancel"></ion-searchbar> </th>
+                  <th> </th>
+                  <th></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container  *ngFor="let commande of allCommandesClient;let i =index"  >
+                  <tr *ngIf="i%2==0" class="background-gray" (click)="goDetail(commande)">
+                    <td>{{commande.idcom}}</td>
+                    <td>{{commande.datecom | date: 'yyyy-MM-dd'}}</td>
+                    <td>{{commande.dateheurecom| date: 'hh:mm'}}</td>
+                    <td>{{commande.statutcom}}</td>
+                    <td>€ {{commande.totalcom}}</td>
+                  </tr>
+                  <tr *ngIf="i%2!=0" class="background-white" (click)="goDetail(commande)">
+                    <td>{{commande.idcom}}</td>
+                    <td>{{commande.datecom | date: 'yyyy-MM-dd'}}</td>
+                    <td>{{commande.dateheurecom | date: 'HH:MM'}}</td>
+                    <td>{{commande.statutcom}}</td>
+                    <td>€ {{commande.totalcom}}</td>
+                  </tr>
+  
+                </ng-container>
+              
+              </tbody>
+              
+            </table>
+          </div>
+          
+
+        </div>
+      </div>
+
+    </ion-col>
+    </ion-row>
+    
+  </ion-grid>
+</ion-content>

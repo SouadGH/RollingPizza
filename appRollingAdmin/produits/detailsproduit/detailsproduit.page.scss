@@ -1,0 +1,51 @@
+body {
+    font-family: 'lato', sans-serif;
+  }
+
+ion-content{
+  --min-height: 100vh!important;
+  --height: 100vh!important;
+  --background-color: rgb(236, 236, 236);
+}
+
+.header-wrapper{
+  display: flex;
+  flex-direction: row;
+  color: #b22227;
+}
+
+.container {
+  width: 100%;
+  min-width: 100%;
+  height: 100%;
+  min-height: 100%;
+  //max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+  //padding-left: 10px;
+  //padding-right: 10px;
+  padding-bottom: 30px;
+
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+  background-color: rgb(236, 236, 236);
+}
+
+ion-icon{
+  font-size:22px;
+}
+
+.produit-title{
+  display: flex;
+  flex-direction: row;
+  ion-col{
+    text-align: center;
+    justify-content: center;
+  }
+}
+
+ion-fab-button{
+  --background: #3b853b;
+}

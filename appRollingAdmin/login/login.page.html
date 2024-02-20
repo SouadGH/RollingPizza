@@ -1,0 +1,101 @@
+<ion-content>
+  
+
+  <div class="limiter">
+    <div class="container-login100">
+      <div class="wrap-login100 p-l-55 p-r-55 p-t-25 p-b-54">
+      
+          <span class="login100-form-title p-b-49">
+            Rolling Pizza Administrateur
+          </span>
+          <img src="../../assets/icon/logo.png">
+       
+
+     
+
+          
+        
+<!--grid codee mployes-->
+<ion-grid id="mainGrid">
+  <ion-row id="rowMainGrid">
+    <ion-item>
+      <ion-input [(ngModel)]="code" text-center type="password"></ion-input>
+    </ion-item>
+  </ion-row>
+
+  <ion-row id="secondRowForSecondGrid">
+    <ion-grid>
+
+      <ion-row>
+        <ion-col size="4">
+          <ion-button (click)="code1('1')">1</ion-button>
+        </ion-col>
+        <ion-col size="4">
+          <ion-button (click)="code1('2')">2</ion-button>
+        </ion-col>
+        <ion-col size="4">
+          <ion-button (click)="code1('3')">3</ion-button>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="4">
+            <ion-button  (click)="code1('4')">4</ion-button>
+        </ion-col>
+        <ion-col size="4">
+            <ion-button  (click)="code1('5')">5</ion-button>
+        </ion-col>
+        <ion-col size="4">
+            <ion-button  (click)="code1('6')">6</ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+
+        <ion-col size="4">
+            <ion-button  (click)="code1('7')">7</ion-button>
+        </ion-col>
+        <ion-col size="4">
+            <ion-button  (click)="code1('8')">8</ion-button>
+        </ion-col>
+        <ion-col size="4">
+              <ion-button  (click)="code1('9')">9</ion-button>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+          <ion-col size="4">
+              <ion-button>#</ion-button>
+            </ion-col>
+
+            <ion-col size="4">
+              <ion-button (click)="code1('0')">0</ion-button>
+            </ion-col>
+            <ion-col size="4">
+              <ion-button (click)="deleteCode()">C</ion-button>
+            </ion-col>
+      </ion-row>
+
+    </ion-grid>
+  </ion-row>
+
+ 
+  
+</ion-grid>  
+<!--fin grid code employes-->
+
+<div class="container-login100-form-btn">
+  <div class="wrap-login100-form-btn">
+    <div class="login100-form-bgbtn"></div>
+    <button class="login100-form-btn" (click)="connexion()">
+      Connexion
+    </button>
+  </div>
+</div>
+        
+
+      
+      </div>
+    </div>
+  </div>
+
+</ion-content>

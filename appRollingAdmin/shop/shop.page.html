@@ -1,0 +1,186 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>RollingPizza</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  
+
+
+
+      <!--profil Souad-->
+      <ion-grid class="grid-client">
+
+        <ion-row>
+          <ion-col size="12" size-sm="12" size-md="4 " size-lg="4" class="col-client-infos">
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="text-primary font-weight-bold m-0">Détails <ion-icon name="settings-outline" ></ion-icon></h6>
+            </div>
+            <div class="card-body" *ngFor="let shop of allInfosShop" lines="full">
+              <form>
+    
+                <div class="form-row icon-row">
+                  <div class="col">
+                    <div class="form-group">
+                      <label>
+                        <ion-icon name="person"></ion-icon>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="col">
+                    <div class="form-group">
+                      <label><strong>{{shop.nomshop}}</strong></label>
+                    </div>
+                  </div>
+                </div>
+    
+             
+    
+                
+                <div class="form-row icon-row">
+                  <div class="col">
+                    <div class="form-group">
+                      <label>
+                        <ion-icon name="location"></ion-icon>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="col">
+                    <div class="form-group">
+                      <label><strong>{{shop.adresseshop}}</strong></label>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="col">
+                    <div class="form-group">
+                      <label><strong>{{shop.codepostalshop}}</strong></label>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="col">
+                    <div class="form-group">
+                      <label><strong>{{shop.villeshop}}</strong></label>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="col">
+                    <div class="form-group">
+                      <label><strong>{{shop.paysshop}}</strong></label>
+                    </div>
+                  </div>
+                </div>
+    
+                <div class="form-row icon-row">
+                  <div class="col">
+                    <div class="form-group">
+                      <label>
+                        <ion-icon name="call"></ion-icon> / <ion-icon name="mail"></ion-icon>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="col">
+                    <div class="form-group">
+                      <label><strong>{{shop.telephoneshop}}</strong></label>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="col">
+                    <div class="form-group">
+                      <label><strong>{{shop.emailshop}}</strong></label>
+                    </div>
+                  </div>
+                </div>
+    
+              </form>
+            </div>
+          </div>
+    
+        </ion-col>
+        <ion-col size="12" size-sm="12" size-md="8 " size-lg="8" class="col-client-commandes">
+
+          <div class="card shadow">
+            <div class="card-header py-3">
+              <!--<p class="text-primary m-0 font-weight-bold">Horaires <ion-icon name="settings-outline" (click)="goUpdateHoraire()" ></ion-icon></p>-->
+              <p class="text-primary m-0 font-weight-bold">Horaires <ion-icon name="settings-outline"  ></ion-icon></p>
+            </div>
+            <div class="card-body">
+    
+              <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                <table class="table my-0" id="dataTable">
+                  <thead>
+                    <tr>
+                      <th>N°:</th>
+                      <th>Jour </th>
+                      <th>Période 1 </th>
+                      <th>Période 2</th>       
+                      <th>Ouvert?</th>                 
+                    </tr>
+                   
+                  </thead>
+                  <tbody>
+                    <ng-container  *ngFor="let horaire of horairesShop;let i =index"  >
+                      <tr *ngIf="i%2==0" class="background-gray" >
+                        <td>{{horaire.idhoraire}}</td>   
+                        <td>{{horaire.jour}}</td>
+                        <td *ngIf="horaire.is_open == 1 && horaire.pauseheuredebut !=null ">{{horaire.heureouvert }}  &nbsp;&nbsp;&nbsp;-- &nbsp;&nbsp;&nbsp;{{horaire.pauseheuredebut }}</td>
+                        <td *ngIf="horaire.is_open == 1 && horaire.pauseheuredebut ==null ">{{horaire.heureouvert}}  &nbsp;&nbsp;&nbsp;-- &nbsp;&nbsp;&nbsp;{{horaire.heureferme }}</td>
+
+                        <td *ngIf="horaire.is_open == 1 && horaire.pauseheuredebut !=null ">{{horaire.pauseheurefin }}  &nbsp;&nbsp;&nbsp;-- &nbsp;&nbsp;&nbsp;{{horaire.heureferme }}</td>
+                        <td *ngIf="horaire.is_open == 1 && horaire.pauseheuredebut ==null ">  &nbsp;&nbsp;&nbsp;-- &nbsp;&nbsp;&nbsp;</td>
+
+                        <td *ngIf="horaire.is_open == 1" style="color:green;">  &nbsp;&nbsp;&nbsp; OUI &nbsp;&nbsp;&nbsp;</td>
+                        <td *ngIf="horaire.is_open != 1" style="color:red;">  &nbsp;&nbsp;&nbsp; NON &nbsp;&nbsp;&nbsp;</td>
+                     
+                      </tr>
+
+
+                      <tr *ngIf="i%2!=0" class="background-white" >
+                        <td>{{horaire.idhoraire}}</td>
+                        <td>{{horaire.jour}}</td>
+                        <td *ngIf="horaire.is_open == 1 && horaire.pauseheuredebut !=null ">{{horaire.heureouvert }}  &nbsp;&nbsp;&nbsp;-- &nbsp;&nbsp;&nbsp;{{horaire.pauseheuredebut }}</td>
+                        <td *ngIf="horaire.is_open == 1 && horaire.pauseheuredebut ==null ">{{horaire.heureouvert }}  &nbsp;&nbsp;&nbsp;-- &nbsp;&nbsp;&nbsp;{{horaire.heureferme }}</td>
+
+                        <td *ngIf="horaire.is_open == 1 && horaire.pauseheuredebut !=null ">{{horaire.pauseheurefin }}  &nbsp;&nbsp;&nbsp;-- &nbsp;&nbsp;&nbsp;{{horaire.heureferme }}</td>
+                        <td *ngIf="horaire.is_open == 1 && horaire.pauseheuredebut ==null ">  &nbsp;&nbsp;&nbsp;-- &nbsp;&nbsp;&nbsp;</td>
+
+                        <td *ngIf="horaire.is_open == 1" style="color:green;">  &nbsp;&nbsp;&nbsp; OUI &nbsp;&nbsp;&nbsp;</td>
+                        <td *ngIf="horaire.is_open != 1" style="color:red;">  &nbsp;&nbsp;&nbsp; NON &nbsp;&nbsp;&nbsp;</td>
+                      </tr>
+      
+
+
+                    </ng-container>
+                  
+                  </tbody>
+                  
+                </table>
+              </div>
+              
+    
+            </div>
+          </div>
+    
+        </ion-col>
+     
+        </ion-row>
+        
+      </ion-grid>
+      <!--profil jorge-->
+      
+  
+
+
+
+</ion-content>

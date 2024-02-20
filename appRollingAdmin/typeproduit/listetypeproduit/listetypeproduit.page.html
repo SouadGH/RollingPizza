@@ -1,0 +1,46 @@
+<ion-content>
+  <div class="header-wrapper">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Liste des types de produit </ion-title>
+  </div>
+
+  <!-- Fab button : bouton pour l'ajout d'un nouveau type de produit ---
+        Ce bouton renvoie à un formulaire se trouvant dans une page à part -->
+
+  <ion-fab vertical="bottom" horizontal="center">
+    <ion-fab-button routerLink="../ajoutertypeproduit">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <div class="container">
+
+    <ion-grid class="table-data table-business" >
+
+      <ion-row class="table-title-grid title-produits" >
+        <ion-col size="12">Liste des types de produit</ion-col>
+      </ion-row>
+
+      <ion-row class="table-header header-produits">
+        <ion-col size="10" size-md="10" size-sm="10" size-xs="10">Type de produit</ion-col>
+        <ion-col size="2" size-md="2" size-sm="2" size-xs="2">Catégorie</ion-col>
+      </ion-row>
+
+      <ion-row class="table-data table-business" *ngFor="let typeproduit of allTypeProduits;let i=index;" >
+        <ion-col size="1" >
+          <ion-icon (click)="deletetypeptoduit(typeproduit.idtypeproduit)" name="trash-outline" style="color: brown;" ></ion-icon>
+         </ion-col>
+        <ion-col size="1" >
+          <ion-icon  (click)="updatetypeptoduit(typeproduit.idtypeproduit)" name="construct-outline" style="color:darkgreen;"></ion-icon> 
+          </ion-col>
+     
+        <ion-col size="8" size-md="8" size-sm="8" size-xs="8">{{typeproduit.nomtypeproduit}}</ion-col>
+        <ion-col size="2" size-md="2" size-sm="2" size-xs="2">{{typeproduit.nomcategorie}}</ion-col>
+      </ion-row>
+
+    </ion-grid>
+
+  </div>
+</ion-content>

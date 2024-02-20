@@ -1,0 +1,312 @@
+//header
+ion-header{
+    --ion-background-color:white !important;
+      img{
+          height: 50px;
+          width: 100px;
+      }
+      
+      .header-wrapper{
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          ion-col{
+              display: flex;
+              justify-content: center;
+          }
+          ion-badge{
+              height: 20px;
+          }
+      }
+    }
+    //----------------------------------------------
+    
+  ion-content{
+      height: 100%;
+      width: 100%;
+  }
+  
+  .grid-client{
+      background-color: #fff;
+      width:100%;
+      height: 100%;
+      display: flex;    
+      ion-row{
+        width: 100%;
+      }
+  }
+  
+  .col-client-infos{
+    //background: lightcoral;
+    margin: 0;
+    font-family: Nunito,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #858796;
+    text-align: left;
+    background-color: #fff;
+  
+    .mb-4, .my-4 {
+      margin-bottom: 1.5rem!important;
+    }
+      
+    .shadow {
+      box-shadow: 0 .15rem 1.75rem 0 rgba(58,59,69,.15)!important;
+    }
+      
+    .card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      word-wrap: break-word;
+      background-color: #fff;
+      background-clip: border-box;
+      border: 1px solid #e3e6f0;
+      border-radius: .35rem;
+    }
+  
+    .card-header:first-child {
+      border-radius: calc(.35rem - 1px) calc(.35rem - 1px) 0 0;
+    }
+    
+    .pb-3, .py-3 {
+      padding-bottom: 1rem!important;
+    }
+    
+    .pt-3, .py-3 {
+      padding-top: 1rem!important;
+    }
+    
+    .card-header {
+      padding: .75rem 1.25rem;
+      margin-bottom: 0;
+      background-color: #f8f9fc;
+      border-bottom: 1px solid #e3e6f0;
+    }
+        
+    .text-primary {
+      color: #4e73df!important;
+    }
+    
+    .font-weight-bold {
+      font-weight: 700!important;
+    }
+    
+    .m-0 {
+      margin: 0!important;
+    }
+    
+    .h6, h6 {
+      font-size: 1rem;
+    }
+    
+    .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+      margin-bottom: .5rem;
+      font-weight: 400;
+      line-height: 1.2;
+    }
+        
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 0;
+      margin-bottom: .5rem;
+    }
+    
+    .card-body {
+      flex: 1 1 auto;
+      min-height: 1px;
+      padding: 1.25rem;
+    }
+  
+    //ligne avec icone : 
+    .icon-row{
+      background-color: #fcf8f8;
+      border-bottom: 1px solid #f0e3e3;
+      .form-group{
+          align-items: center;
+          justify-content: center;
+      }
+      ion-icon{
+          color: rgb(180, 49, 49);
+          font-size: 16px; 
+      }
+    }
+  
+    .form-row {
+      display: flex;
+      flex-wrap: wrap;
+      margin-right: -5px;
+      margin-left: -5px;
+    }
+  
+    .form-row > .col, .form-row > [class*=col-] {
+      padding-right: 5px;
+      padding-left: 5px;
+    }
+    
+    .col {
+      flex-basis: 0;
+      flex-grow: 1;
+      max-width: 100%;
+    }
+  
+    .form-group {
+      margin-bottom: 0.5rem;
+      font-size:14px;
+    }
+    
+    label {
+      display: inline-block;
+      margin-bottom: .5rem;
+    }
+    
+    b, strong {
+      font-weight: bolder;
+    }
+  
+    .form-control:focus {
+      color: #6e707e;
+      background-color: #fff;
+      border-color: #bac8f3;
+      outline: 0;
+      box-shadow: 0 0 0 .2rem rgba(78,115,223,.25);
+    }
+                        
+  }
+  
+  
+  
+  
+  
+  .col-client-commandes{
+      
+    .shadow {
+      box-shadow: 0 .15rem 1.75rem 0 rgba(58,59,69,.15)!important;
+    }
+      
+    .card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      word-wrap: break-word;
+      background-color: #fff;
+      background-clip: border-box;
+      border: 1px solid #e3e6f0;
+      border-radius: .35rem;
+    }
+      
+    .card-header:first-child {
+      border-radius: calc(.35rem - 1px) calc(.35rem - 1px) 0 0;
+    }
+      
+    .pb-3, .py-3 {
+      padding-bottom: 1rem!important;
+    }
+      
+    .pt-3, .py-3 {
+      padding-top: 1rem!important;
+    }
+    
+    .card-header {
+      padding: .75rem 1.25rem;
+      margin-bottom: 0;
+      background-color: #f8f9fc;
+      border-bottom: 1px solid #e3e6f0;
+    }
+  
+    .text-primary {
+      color: #4e73df!important;
+    }
+    
+    .font-weight-bold {
+      font-weight: 700!important;
+    }
+    
+    .m-0 {
+      margin: 0!important;
+    }
+    
+    p {
+      margin-top: 0;
+      margin-bottom: 1rem;
+    }
+        
+    //--- end header///////////
+      
+    .card-body {
+      flex: 1 1 auto;
+      min-height: 1px;
+      padding: 1.25rem;
+    }
+      
+    //table 
+    .mt-2, .my-2 {
+      margin-top: .5rem!important;
+    }
+      
+    .table-responsive {
+      display: block;
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    
+    .table {
+      width: 100%;
+      margin-bottom: 1rem;
+      color: #858796;
+    }
+    
+    .mb-0, .my-0 {
+      margin-bottom: 0!important;
+    }
+    
+    .mt-0, .my-0 {
+      margin-top: 0!important;
+    }
+      
+    .table {
+      width: 100%;
+      margin-bottom: 1rem;
+      color: #858796;
+    }
+    
+    table {
+      border-collapse: collapse;
+    }
+    
+    .table thead th {
+      vertical-align: bottom;
+      border-bottom: 2px solid #e3e6f0;
+    }
+    
+    .table td, .table th {
+      padding: .75rem;
+      vertical-align: top;
+      border-top: 1px solid #e3e6f0;
+    }
+    
+    th {
+      text-align: inherit;
+    }
+    
+    .table td, .table th {
+      padding: .75rem;
+      vertical-align: top;
+      border-top: 1px solid #e3e6f0;
+    }
+  
+    .table td{
+      font-size: 12px;
+    }
+         
+  
+  }
+  .background-gray{
+    background-color:#f0e3e3 ;
+}
+.background-white{
+  background-color:white;
+}

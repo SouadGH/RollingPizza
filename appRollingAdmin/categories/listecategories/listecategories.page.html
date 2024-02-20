@@ -1,0 +1,47 @@
+<ion-content>
+  <div class="header-wrapper">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Liste des catégories des types de produit </ion-title>
+  </div>
+
+  <!-- Fab button : bouton pour l'ajout d'un nouveau type de produit ---
+        Ce bouton renvoie à un formulaire se trouvant dans une page à part -->
+
+  <ion-fab vertical="bottom" horizontal="center">
+    <ion-fab-button routerLink="../ajoutercategorie">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <div class="container">
+
+    <ion-grid class="table-data table-business">
+
+      <ion-row class="table-title-grid title-produits">
+        <ion-col size="12">Liste des catégories de types de produit</ion-col>
+      </ion-row>
+
+      <ion-row class="table-header header-produits">
+        <ion-col size="12" size-md="12" size-sm="12" size-xs="12">Catégories</ion-col>
+
+      </ion-row>
+
+      <ion-row class="table-title-grid title-produits" *ngFor="let categorie of allCategorie" >
+        <ion-col size="1" >
+          <ion-icon (click)="deletetcategorie(categorie.idcategorie)" name="trash-outline" style="color: brown;"></ion-icon>
+         </ion-col>
+        <ion-col size="1" >
+          <ion-icon  (click)="updatecategorie(categorie.idcategorie)" name="construct-outline" style="color:darkgreen;"></ion-icon> 
+          </ion-col>
+     
+        <ion-col size="10" size-md="10" size-sm="10" size-xs="10">{{categorie.nomcategorie}}</ion-col>      
+   
+      </ion-row>
+
+    </ion-grid>
+
+  </div>
+</ion-content>
+

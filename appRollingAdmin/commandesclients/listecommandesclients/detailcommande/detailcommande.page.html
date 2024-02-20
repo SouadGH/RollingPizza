@@ -1,0 +1,175 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <div class="header-wrapper">
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+      <ion-col size="10">
+        <img src="../../../../assets/icon/logo.png">
+      </ion-col>
+      <ion-buttons vertical="top" horizontal="end">
+        <ion-fab-button (click)="ngOnInit()">
+          <ion-icon name="refresh"></ion-icon>
+        </ion-fab-button>
+      </ion-buttons>
+
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="container">
+    <ion-card class="card-commande">
+      <ion-card-header>
+        <div class="card-header py-3">
+          <p class="text-primary m-0 font-weight-bold">Commande #{{commande.idcom}}</p>
+
+        </div>
+
+      </ion-card-header>
+      <ion-card-content>
+        <ion-row>
+          <ion-col size="6"> <span><strong>Date</strong> {{commande.datecom | date: 'dd/MM/yyyy'}}</span></ion-col>
+          <ion-col size="6"><span> <strong>Heure</strong> {{commande.dateheurecom| date: 'HH:mm'}}</span></ion-col>
+        </ion-row>
+        <!--<ion-row>
+          <ion-col size="12"> <span><strong>Préparateur de commande </strong> </span></ion-col>
+          <ion-col size="6"><span>{{commande.nomemploye}} {{commande.prenomemploye}}</span></ion-col>
+        </ion-row>-->
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card class="card-client" *ngFor="let client of commande.adresseLivraison">
+      <ion-card-header>
+        <div class="card-header py-3">
+          <p class="text-primary m-0 font-weight-bold">Client #{{commande.idclient}}</p>
+        </div>
+
+      </ion-card-header>
+      <ion-card-content>
+        <ion-row>
+          <span><strong>Adresse de livraison</strong> </span>
+        </ion-row>
+        <ion-row>
+          <span>{{client.nomclient}} {{client.prenomclient}} </span>
+        </ion-row>
+        <ion-row>
+          <span>{{client.adresseclient}} </span>
+        </ion-row>
+        <ion-row>
+          <span>{{client.npaclient}} {{client.villeclient}} </span>
+        </ion-row>
+        <ion-row>
+          <span> {{client.paysclient}} </span>
+        </ion-row>
+        <ion-row *ngIf="client.codeentree!=''">
+          <span> Code Entrée :{{client.codeentree}}</span>
+        </ion-row>
+        <ion-row *ngIf="client.etageclient!=''">
+          <span> Etage :{{client.etageclient}} </span>
+        </ion-row>
+        <ion-row *ngIf="client.commentaire!=''">
+          <span> Commentaire :{{client.commentaire}} </span>
+        </ion-row>
+        <ion-row>
+          <span> {{client.telephoneclient}} </span>
+        </ion-row>
+        <ion-row>
+          <span> {{client.emailclient}} </span>
+        </ion-row>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card class="card-produits">
+      <ion-card-header>
+        <div class="card-header py-3">
+          <p class="text-primary m-0 font-weight-bold">Détail de la commande</p>
+        </div>
+      </ion-card-header>
+      <ion-card-content>
+
+        <ion-row class="th">
+          <ion-col size="2">Quantité</ion-col>
+          <ion-col size="3">Produit</ion-col>
+          <ion-col size="3">Prix unitaire</ion-col>
+          <ion-col size="2">Prix total</ion-col>
+          <ion-col size="2"></ion-col>
+          <ion-col size="2"></ion-col>
+        </ion-row>
+
+        <ion-row *ngFor="let produit of commande.listeProduits">
+          <ion-col size="2">
+            {{produit.quantiteproduit}}
+            <span *ngIf="produit.taille == 'poids' ">KG</span>
+            <span *ngIf="produit.taille == 'unite' "> x </span>
+          </ion-col>
+          <ion-col size="3">{{produit.nomproduit}}
+            <ion-row *ngIf="produit.listeSupplements.length>0 || produit.listeARetirer.length>0">
+
+              <ion-col size="6">
+                <span *ngIf="produit.listeSupplements.length>0"><strong>Suppléments</strong> </span>
+                <ion-list *ngFor="let supplement of produit?.listeSupplements; let j = index ">
+                  <span *ngIf="supplement.nomcomposant!=null">{{supplement.nomcomposant}}</span>
+                </ion-list>
+              </ion-col>
+              <ion-col size="6">
+                <span *ngIf="produit.listeARetirer.length>0"><strong>A retirer</strong> </span>
+                <ion-list *ngFor="let supplement of produit?.listeARetirer; let j = index ">
+                  <span *ngIf="supplement.nomcomposant!=null">{{supplement.nomcomposant}}</span>
+                </ion-list>
+              </ion-col>
+
+            </ion-row>
+
+
+            <ion-row *ngIf="produit.listeIngredients.length>0 ">
+
+              <ion-col size="6">
+                <span *ngIf="produit.listeIngredients.length>0"><strong>composants Combos</strong> </span>
+                <ion-list *ngFor="let combos of produit?.listeIngredients; let j = index ">
+                  <span>{{combos.nomCombos}}</span>
+                </ion-list>
+              </ion-col>
+
+
+            </ion-row>
+            <ion-row *ngIf="produit.listeOffre.length>0 ">
+
+              <ion-col size="6">
+                <span *ngIf="produit.listeOffre.length>0"><strong>composants offre</strong> </span>
+                <ion-list *ngFor="let offre of produit?.listeOffre; let j = index ">
+                  <span>{{offre.quantiteOffre}}*{{offre.nomproduitOffre}}</span>
+                </ion-list>
+              </ion-col>
+
+
+            </ion-row>
+
+
+
+
+
+
+
+
+          </ion-col>
+          <ion-col size="3">€ {{produit.prixproduit }}</ion-col>
+          <ion-col size="2">€ {{produit.prixproduit * produit.quantiteproduit}}</ion-col>
+          <ion-col size="2"></ion-col>
+          <ion-col size="2"></ion-col>
+        </ion-row>
+
+        <ion-row class="total-commande">
+          <span> Total de la commande</span> <span>€ {{commande.totalcom}} </span>
+        </ion-row>
+      </ion-card-content>
+    </ion-card>
+
+  </div>
+
+
+
+
+
+</ion-content>

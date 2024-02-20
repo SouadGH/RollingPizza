@@ -1,0 +1,123 @@
+<!--<ion-header>
+  <ion-toolbar>
+    <ion-title>Rolling pizza - Adresse de livraison</ion-title>
+  </ion-toolbar>
+</ion-header>-->
+
+<ion-content>
+
+  <div class="container">
+
+    <ion-grid class="grid-new-login p-l-55 p-r-55 p-t-25 p-b-54">
+
+      <form [formGroup]="clientSignUp">
+ <span class="login100-form-title p-b-49">
+           Adresse de livraison
+          </span>
+        <!--<ion-row class="grid-title">
+          <div class="grid-title-div">Rolling - Adresse</div>
+        </ion-row>-->
+        <ion-row class="row-input">
+         
+          <ion-row class="row-input-content row-with-title">
+            <ion-col class="row-input-col-data" size="6">
+              <ion-item>
+                <ion-label position="stacked">Nom</ion-label>
+                <ion-input formControlName="nomclient" type="text"  name="nomclient">
+                </ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col class="row-input-col-data" size="6">
+              <ion-item>
+                <ion-label position="stacked">Prénom</ion-label>
+                <ion-input formControlName="prenomclient" type="text"  name="prenomclient"></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-row>
+
+        <ion-row class="row-input">
+          <ion-row class="row-input-content">
+            <ion-col class="row-input-col-data" size="6">
+              <ion-item>
+                <ion-label position="stacked">Adresse</ion-label>
+                <ion-input formControlName="adresseclient" type="text"  name="adresseclient"></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col class="row-input-col-data" size="6">
+              <ion-item>
+                <ion-label position="stacked">NPA</ion-label>
+                <ion-input formControlName="npaclient" type="number"  name="npaclient"></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-row>
+
+        <ion-row class="row-input">
+          <ion-row class="row-input-content">
+            <ion-col class="row-input-col-data" size="6">
+              <ion-item>
+                <ion-label position="stacked">Ville</ion-label>
+                <ion-input formControlName="villeclient" type="text"  name="villeclient"></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col class="row-input-col-data" size="6">
+              <ion-item>
+                <ion-label position="stacked">Pays</ion-label>
+                <ion-input formControlName="paysclient" type="text" name="paysclient"></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-row>
+
+        <ion-row class="row-input">
+
+          <ion-col class="row-input-col-data" size="12">
+            <ion-item>
+              <ion-label position="stacked">Téléphone</ion-label>
+              <ion-input formControlName="telephoneclient" type="tel" name="telephoneclient"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row class="row-input" *ngIf="demandeur==0">
+          <ion-row class="row-input-title ">Vos données de compte</ion-row>
+          <ion-row class="row-input-content row-with-title">
+            <ion-col class="row-input-col-data" size="6">
+              <ion-item>
+                <ion-label position="stacked">Email</ion-label>
+                <ion-input formControlName="emailclient" type="email"  name="emailclient"></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col class="row-input-col-data" size="6">
+              <ion-item>
+                <ion-label position="stacked">Mot de passe</ion-label>
+                <ion-input formControlName="motdepasseclient" type="password"  name="motdepasseclient">
+                </ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-row>
+
+        <ion-row class="row-input btn-confirmer">
+          <ion-button (click)="addClient()">Confirmer</ion-button>
+        </ion-row>
+        <ion-row class="row-input btn-confirmer" *ngIf="demandeur==0 && typelivraison!=3">
+          <ion-button (click)="PasserAuMenu()">Suivant</ion-button>
+        </ion-row>
+
+      </form>
+
+    </ion-grid>
+
+  </div>
+
+  <!--
+    nom ; prenom ;
+     adresse ; npa; 
+     ville ; pays ; 
+     telephone ; 
+    email ; mot de passe
+  -->
+
+</ion-content>

@@ -1,0 +1,70 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <div class="header-wrapper">
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-col size="12">
+        <img src="../../../assets/icon/logo.png">
+      </ion-col>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="container">
+
+    <ion-grid class="table-data table-business">
+    
+      <ion-row class="table-title-grid title-commandes">
+        <ion-col size="12">Liste des clients</ion-col>
+      </ion-row>
+
+      <ion-row class="table-header header-commandes">
+        <ion-col size="3" size-md="3" size-sm="3" size-xs="3">       
+          <ion-row>
+            <ion-col size="12">Nom</ion-col>
+            <ion-col size="12"> <ion-searchbar #searchNom  (ionChange)="onSearchTerm($event)" class="header-livraison" animated="true" autocomplete="on" color="#7D7D7D" showCancelButton="focus" cancelButtonText="Custom Cancel"></ion-searchbar></ion-col>
+          </ion-row>      
+          
+        </ion-col>
+     
+        <ion-col size="2" size-md="2" size-sm="2" size-xs="2">
+          <ion-row>
+            <ion-col size="12">Prénom</ion-col>
+            <ion-col size="12"> <ion-searchbar #searchPrenom  (ionChange)="onSearchTerm($event)" class="header-livraison" animated="true" autocomplete="on" color="#7D7D7D" showCancelButton="focus" cancelButtonText="Custom Cancel"></ion-searchbar></ion-col>
+          </ion-row> 
+        </ion-col>
+        <ion-col size="4" size-md="4" size-sm="4" size-xs="4">
+          <ion-row>
+            <ion-col size="12">Email</ion-col>
+            <ion-col size="12"> <ion-searchbar #searchEmail (ionChange)="onSearchTerm($event)" class="header-livraison" animated="true" autocomplete="on" color="#7D7D7D" showCancelButton="focus" cancelButtonText="Custom Cancel"></ion-searchbar></ion-col>
+          </ion-row> 
+          </ion-col>
+        <ion-col size="3" size-md="3" size-sm="3" size-xs="3">
+          <ion-row>
+            <ion-col size="12">Téléphone</ion-col>
+            <ion-col size="12"> <ion-searchbar #searchPhone (ionChange)="onSearchTerm($event)" class="header-livraison" animated="true" autocomplete="on" color="#7D7D7D" showCancelButton="focus" cancelButtonText="Custom Cancel"></ion-searchbar></ion-col>
+          </ion-row> 
+          </ion-col>
+      </ion-row>
+
+      <ion-row class="table-row-data table-row-data-produits row-clients" style="font-size:small;" *ngFor="let client of allClients;let i=index;" (click)="goDetail(client)">
+
+
+
+        <ion-col *ngIf="i%2==0" class="background-gray"  size="3" size-md="3" size-sm="3" size-xs="3">{{client.nomclient}}</ion-col>
+        <ion-col *ngIf="i%2==0" class="background-gray" size="2" size-md="2" size-sm="2" size-xs="2">{{client.prenomclient}}</ion-col>
+        <ion-col *ngIf="i%2==0" class="background-gray"  size="4" size-md="4" size-sm="4" size-xs="4">{{client.emailclient}}</ion-col>
+        <ion-col *ngIf="i%2==0" class="background-gray"  size="3" size-md="3" size-sm="3" size-xs="3">+41{{client.telephoneclient}}</ion-col>
+
+        <ion-col *ngIf="i%2!=0" class="background-white"  size="3" size-md="3" size-sm="3" size-xs="3">{{client.nomclient}}</ion-col>
+        <ion-col *ngIf="i%2!=0" class="background-white"  size="2" size-md="2" size-sm="2" size-xs="2">{{client.prenomclient}}</ion-col>
+        <ion-col *ngIf="i%2!=0" class="background-white"  size="4" size-md="4" size-sm="4" size-xs="4">{{client.emailclient}}</ion-col>
+        <ion-col *ngIf="i%2!=0" class="background-white"  size="3" size-md="3" size-sm="3" size-xs="3">+41{{client.telephoneclient}}</ion-col>
+      </ion-row>
+
+    </ion-grid>
+
+  </div>
+</ion-content>

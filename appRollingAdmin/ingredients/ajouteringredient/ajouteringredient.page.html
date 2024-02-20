@@ -1,0 +1,82 @@
+<!-----------------------------------------------------------------------------
+* Script pour l'ajout d'un nouveau produit pour Rolling Pizza
+* Auteur : Helvitech Dev Team - 
+* Date : 29.006.2020
+* * * * * * * * * *
+* Commentaire : 
+*     - Simple formulaire à remplir par l'Admin, avec les informations de base
+*         du nouveau produit à intégrer à la plateforme. 
+------------------------------------------------------------------------------->
+
+<ion-content>
+  <ion-toolbar >
+    <ion-buttons slot="end">
+      <ion-back-button defaultHref="/listeingredients"></ion-back-button>
+    </ion-buttons>
+    <ion-title></ion-title>
+  </ion-toolbar>
+  <div class="container">
+
+
+    <ion-grid class="new-form" >
+      <ion-row class="header-form">
+        <ion-col size="12">Enregistrement d'un composant </ion-col>
+      </ion-row>
+
+      <ion-row class="data-row">
+        <ion-col class="data-row-col" size="12">
+          <ion-row class="label-data-row-col">Produit</ion-row>
+          <ion-row class="input-row">
+            <ion-input class="input-data-row-col" [(ngModel)]="nomcomposant" type="text" placeholder="Produit"></ion-input>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+
+      <!-- Zone connexion -->
+      <ion-row class="data-row">
+        <ion-col class="data-row-col" size="6">
+          <ion-row class="label-data-row-col">Prix </ion-row>
+          <ion-row class="input-row">
+            <ion-input class="input-data-row-col" [(ngModel)]="prixcomposant" type="number" placeholder="Prix"></ion-input>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="data-row typecategoriesous-produit">
+        <ion-col class="data-row-col" size="4" size-sm="12" size-xs="12">
+          <ion-row class="label-data-row-col">Catégorie composant</ion-row>
+          <ion-row class="input-row">
+            <ion-select (ionChange)="onChangeCategorie($event)"
+             interface="popover"
+            placeholder="Sélectionnez une option" [(ngModel)]="categoriecomposant">
+              <!--<ion-select-option class="alert-wrapper" value="0"></ion-select-option>-->
+              <ion-select-option class="alert-wrapper" *ngFor="let categorie of allCategorieComposant" 
+              value="{{categorie.categoriecomposant}}">
+               {{categorie.categoriecomposant}}</ion-select-option>
+            </ion-select>
+          </ion-row>
+        </ion-col>
+        
+      
+
+        
+
+      </ion-row>
+
+     
+
+      <!-- Zone boutons -->
+      <ion-row class="data-row row-buttons">
+        <ion-col class="data-row-col" size="4" size-md="6" size-sm="12" size-xs="12">
+          <ion-button color="success" (click)="addNew()">Confirmer</ion-button>
+        </ion-col>
+        <ion-col class="data-row-col" size="4" size-md="6" size-sm="12" size-xs="12">
+          <ion-button (click)="Annuler()"color="danger">Annuler</ion-button>
+        </ion-col>
+      </ion-row>
+
+    </ion-grid>
+
+  </div>
+
+</ion-content>

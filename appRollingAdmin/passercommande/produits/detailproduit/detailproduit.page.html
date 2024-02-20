@@ -1,0 +1,497 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <div class="header-content">
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-col size="3" class="first-title">Rolling Pizza </ion-col>
+      <ion-col size="3" class="image-header">
+        <img src="../../assets/icon/logo.png" routerLink="/tabs/home">
+      </ion-col>
+      <ion-col *ngIf="demandeur==0" size="3" class="second-title">Particulier</ion-col>
+      <ion-col *ngIf="demandeur==1" size="3" class="second-title">Partenaire</ion-col>
+      <ion-col size="2" class="cart-header">
+        <ion-icon name="cart" routerLink="/panier"></ion-icon>
+        <ion-badge color="danger" item-end>{{cartItemCount }}</ion-badge>
+      </ion-col>
+    </div>
+  </ion-toolbar>
+
+</ion-header>
+<ion-content>
+
+  <ion-grid class="grid-detail-produit">
+
+    <ion-col class="grid-main-col">
+
+      <ion-row class="grid-title">
+        <!--<div class="grid-title-content"> -->
+          <img [src]="(dataProduit.imageproduit  ? path.concat(dataProduit.imageproduit) : '../../assets/nopicture.jpg')"/>
+           
+        <!--<img src="../../assets/img/menu/{{dataProduit.nomproduit}}.JPG">-->
+
+        <!--</div>-->
+      </ion-row>
+
+      <!--
+      <ion-row class="grid-content">
+-->
+      <!-- ligne du nom et prix du produit en détail -->
+      <ion-row class="row-title-price">
+        <ion-col size="12">
+          <label class="label-nomproduit"><strong> {{dataProduit.nomproduit}} </strong></label>
+          <label   *ngIf="idtypeproduit == 27" class="label-nomproduit" style="color: red;" >
+             <strong > {{dataProduit.ComposantsOffres[0].descriptionoffre}} </strong>
+          </label>
+         <!--Prix - selon si sur place, emporte ou livraison-->
+          <label [hidden]="demandeur == 1" *ngIf="dataProduit.listeprix.length == 0  &&  dataProduit.prixproduit != '0.00' " class="row-detail-options prix">
+           {{dataProduit.prixproduit}} CHF
+          </label>
+          <label [hidden]="demandeur == 1" *ngIf="dataProduit.listeprix.length > 0  && idtypelivraison == 1" class="row-detail-options prix">
+            {{dataProduit.prixproduit}} CHF
+          </label>
+          <label [hidden]="demandeur == 1" *ngIf="dataProduit.listeprix.length > 0 && idtypelivraison == 2" class="row-detail-options prix">
+            {{dataProduit.prixproduit}} CHF
+          </label>
+          <label [hidden]="demandeur == 1" *ngIf="dataProduit.listeprix.length > 0 && idtypelivraison == 3" class="row-detail-options prix">
+            {{dataProduit.prixproduit}} CHF
+          </label>
+        </ion-col>
+      </ion-row>
+
+      <!-----------------------------------
+      ---- Ligne des ingredients pizza ----
+      ------------------------------------>
+      <ion-row class="row-ingredient-pizza">
+        <ion-col size="12" class="col-ingredient-pizza" *ngIf="idtypeproduit == 1 || idtypeproduit == 2 ">
+
+          <!--Ingrédients de base-->
+          <ion-row class="row-data">
+            <div class="aretirer-div" *ngIf="dataProduit.composantsproduit">
+              <ion-list *ngFor="let composant of dataProduit.composantsproduit;let i=index" class="row-liste">
+                <ion-list-header *ngIf="i == 0">
+                  <ion-label class="black-group-title">
+                    Ingrédients de base
+                  </ion-label>
+                </ion-list-header>
+                <ion-item lines=none class="ionitem-data">
+                  <ion-label class="label-nom"> {{composant.nomcomposant}}</ion-label>
+                </ion-item>
+              </ion-list>
+            </div>
+          </ion-row>
+
+          <!------------------------------------------------>
+
+          <!--Ingrédients à retirer-->
+          <ion-row class="row-data aretirer">
+
+            <!-- <ion-row class="row-ingredients-data" *ngIf="dataProduit.composantsproduit"> -->
+            <div class="aretirer-div" *ngIf="dataProduit.composantsproduit">
+              <ion-list *ngFor="let composant of dataProduit.composantsproduit;let i=index" class="row-liste">
+                <ion-list-header *ngIf="i == 0">
+                  <ion-label class="black-group-title">
+                    Ingrédients à retirer
+                  </ion-label>
+                </ion-list-header>
+                <ion-item lines=none class="ionitem-data">
+                  <ion-label slot="start" class="label-nom"> {{composant.nomcomposant}}</ion-label>
+                  <ion-label class="label-prix"></ion-label>
+                  <ion-checkbox spot="right" interface="action-sheet" class="custom-options"
+                    [(ngModel)]="composant.isChecked" color="danger" value="{{composant.nomcomposant}}"
+                    (ionChange)="checkboxAretirer(composant.idcomposant,composant.nomcomposant,composant.categoriecomposant,composant.prixcomposant, composant.isChecked,i)">
+                  </ion-checkbox>
+                </ion-item>
+              </ion-list>
+            </div>
+
+
+            <!--<ion-label *ngFor="let composant of dataProduit.composantsproduit"> {{composant.nomcomposant}} , </ion-label>-->
+
+            <!-- </ion-row> -->
+          </ion-row>
+          <!------------------------------------------------>
+
+        </ion-col>
+      </ion-row>
+
+
+    <!-- to be removed
+      <ion-item lines=none class="ionitem-data">
+        <ion-label class="label-nom"> {{composant.nomcomposant}}</ion-label>
+      </ion-item>
+    -->
+
+      <ion-card *ngIf="idtypeproduit == 1">
+        <ion-card-header>
+          <ion-label class="white-group-title">
+            Ajouter & Changer
+          </ion-label>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-item class="ion-card-item">
+            <ion-label>Taille pizza</ion-label>
+            <ion-select *ngIf="idtypeproduit == 1" (ionChange)="onChangeTaillePizza()" interface="popover"
+              [(ngModel)]="pizzataille">
+              <ion-select-option class="alert-wrapper label-nom" *ngFor="let pizza of dataProduit.listeprix  ;let i = index "
+                value="{{i}}">
+                {{pizza.diametre}} cm</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+         
+
+          <ng-container *ngFor="let composant of allComposants">
+            <ion-item class="row-data pates ion-card-item" *ngIf="composant.categoriecomposant == 'pâte' && idtypeproduit == 1">
+              <!--pâte-->
+
+              <ion-label class="label-nom">Pâte pizza</ion-label>
+              <ion-select (ionChange)="onChangePatePizza(ingredient)" interface="popover"
+                placeholder="Sélectionnez une option" [(ngModel)]="pizzapate" class="ionselect">
+                <!--<ion-select-option class="alert-wrapper" value="0"></ion-select-option>-->
+                <ion-select-option class="alert-wrapper" *ngFor="let ingredient of composant.listeIngredients"
+                  [value]="ingredient">
+                  {{ingredient.nomcomposant}} ({{ingredient.prixcomposant}}chf)
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+
+
+
+            <!----------------sauces *ngFor="let composant of allComposants"-->
+            <ion-item class="row-data sauce ion-card-item" *ngIf="composant.categoriecomposant == 'sauces' && idtypeproduit == 1">
+
+              <ion-label class="label-nom">Sauce pizza</ion-label>
+              <ion-select (ionChange)="onChangeSaucePizza(ingredient)" interface="popover"
+                placeholder="Sélectionnez une option" [(ngModel)]="pizzasauce" class="ionselect">
+                <!--<ion-select-option class="alert-wrapper" value="0"></ion-select-option>-->
+                <ion-select-option class="alert-wrapper" *ngFor="let ingredient of composant.listeIngredients"
+                  [value]="ingredient">
+                  {{ingredient.nomcomposant}} ({{ingredient.prixcomposant}}chf)</ion-select-option>
+              </ion-select>
+            </ion-item>
+
+
+            <!-- garniture / *ngFor="let composant of allComposants"-->
+            <ion-item class="row-data taille ion-card-item"
+              *ngIf="composant.categoriecomposant == 'garnitures' && idtypeproduit == 1">
+
+              <ion-label class="label-nom">Garnitures</ion-label>
+              <ion-select [interfaceOptions]="garnituresOptions" 
+                multiple="true" [(ngModel)]="chosenIngredients" interface="popover"
+                (ionChange)="onSelectChange(ingredient)" class="ionselect">
+                <ion-select-option *ngFor="let ingredient of composant.listeIngredients;let i=index"
+                  [value]="ingredient" class="ionselectoptions">
+                  {{ingredient.nomcomposant}} {{ingredient.prixcomposant}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+
+            <!-- pse -- Error with --prod mais ok on ligne 176 !!! 
+            <ion-item class="row-data taille ion-card-item" 
+              *ngIf="composant.categoriecomposant == 'salad' && idtypeproduit == 2">
+            -->
+            <ion-item class="row-data taille ion-card-item" *ngIf="false">
+              
+              <ion-label class="label-nom">Choisissez la garniture</ion-label>
+              <ion-select multiple="true" [(ngModel)]="chosenIngredientsSalades">
+                <ion-select-option *ngFor="let ingredient of composant.listeIngredients;let i=index"
+                  [value]="ingredient">
+                  {{ingredient.nomcomposant}} {{ingredient.prixcomposant}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+
+          </ng-container>
+
+        </ion-card-content>
+
+      </ion-card>
+
+  <!----------------------------------------------------------------
+      ----             Ligne  Combos                            ----
+      -------------------------------------------------------------->
+      <ion-card *ngIf="idtypeproduit == 26 ">
+        <ion-card-header>
+          <ion-label class="white-group-title">Ingredients combos</ion-label>
+        </ion-card-header>
+        <!--
+        <ion-item-group>
+          <ion-item-divider>
+            <ion-label>Entrée</ion-label>
+          </ion-item-divider>
+          <ion-item>
+            <ion-select [(ngModel)]="chosenCombosEntree" (ionChange)="onSelectChangeChosenPizza(pizza)">
+              <ion-select-option *ngFor="let composant of dataProduit.composantsCombos[0].entree;let j=index"
+                [value]="composant">{{composant.nomproduitcombos}} </ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-item-group>
+
+        <ion-item-group>
+          <ion-item-divider>
+            <ion-label>Pizza</ion-label>
+          </ion-item-divider>
+          <ng-container *ngFor="let choice of stringSequence(this.dataProduit.composantsCombos[0].pizza[0].quantitee);let k=index; ">
+            <ion-item>
+              <ion-label>{{choice}}:</ion-label>
+              <ion-select [(ngModel)]="chosenCombosPizza[k]" (ionChange)="onSelectChangeChosenPizzaCombo(pizza, k)">
+                <ion-select-option *ngFor="let pizza of allPizza;let l=index" [value]="pizza">{{pizza.nomproduit}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ng-container>
+        </ion-item-group>
+
+        <ion-item-group>
+          <ion-item-divider>
+            <ion-label>Boissons</ion-label>
+          </ion-item-divider>
+          <ng-container *ngFor="let choice of stringSequence(this.dataProduit.composantsCombos[0].pizza[0].quantitee);let l=index; ">
+            <ion-item>
+              <ion-label>{{choice}}:</ion-label>
+              <ion-select [(ngModel)]="chosenCombosBoissons[l]" (ionChange)="onSelectChangeChosenBoissonCombo(boisson, l)">
+                <ion-select-option *ngFor="let boisson of allBoissonsSansAlcool;let i=index" [value]="boisson">{{boisson.nomproduit}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ng-container>
+        </ion-item-group>
+        -->
+
+        <ion-item-group>
+          <ion-item-divider>
+            <ion-label class="black-group-subtitle">Entrée</ion-label>
+          </ion-item-divider>
+          <ng-container *ngFor="let choice of stringSequence(this.dataProduit.composantsCombos[0].entree[0].quantitee);let k=index; ">
+          <ion-item class="ion-card-item">
+            <ion-label>{{choice}}:</ion-label>
+            <ion-select [(ngModel)]="chosenCombosEntree[k]">
+              <ion-select-option *ngFor="let composant of dataProduit.composantsCombos[0].entree;let j=index"
+                [value]="composant">{{composant.nomproduitcombos}} </ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ng-container>
+
+        </ion-item-group>
+
+        <ion-item-group>
+          <ion-item-divider>
+            <ion-label class="black-group-subtitle">Pizza</ion-label>
+          </ion-item-divider>
+          <ng-container *ngFor="let choice of stringSequence(this.dataProduit.composantsCombos[0].pizza[0].quantitee);let k=index; ">
+            <ion-item class="ion-card-item">
+              <ion-label>{{choice}}:</ion-label>
+              <ion-select [(ngModel)]="chosenCombosPizza[k]">
+                <ion-select-option *ngFor="let pizza of allPizza;let l=index" [value]="pizza">{{pizza.nomproduit}}
+                </ion-select-option>
+              </ion-select>
+              <ion-label>
+              </ion-label>
+              <ion-label>Taille:</ion-label>
+              {{dataProduit.composantsCombos[0].pizza[0].taille}}
+              <!--<ion-select [(ngModel)]="chosenCombosPizzaTaille[k]" readonly>
+                <ion-select-option *ngFor="let pizzaTaille of selectedPizzaTaille;let l=index" [value]="pizza">{{pizzaTaille}}
+                </ion-select-option>
+              </ion-select>-->
+            </ion-item>
+          </ng-container>
+        </ion-item-group>
+
+        <ion-item-group>
+          <ion-item-divider>
+            <ion-label class="black-group-subtitle">Boissons</ion-label>
+          </ion-item-divider>
+          <ng-container *ngFor="let choice of stringSequence(this.dataProduit.composantsCombos[0].boissons[0].quantitee);let l=index; ">
+            <ion-item class="ion-card-item">
+              <ion-label>{{choice}}:</ion-label>
+              <ion-select [(ngModel)]="chosenCombosBoissons[l]">
+                <ion-select-option *ngFor="let boisson of allBoissonsSansAlcool;let i=index" [value]="boisson">{{boisson.nomproduit}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ng-container>
+        </ion-item-group>
+
+      </ion-card>
+
+ <!----------------------------------------------------------------
+      ----             Ligne  Combos                            ----
+      -------------------------------------------------------------->
+      <ion-card *ngIf="idtypeproduit == 27">
+        <ion-card-header>
+          <ion-label class="white-group-title">Ingredients de l'offre</ion-label>
+        </ion-card-header>
+        <!--
+        <ion-item-group>
+          <ion-item-divider>
+            <ion-label>Entrée</ion-label>
+          </ion-item-divider>
+          <ion-item>
+            <ion-select [(ngModel)]="chosenCombosEntree" (ionChange)="onSelectChangeChosenPizza(pizza)">
+              <ion-select-option *ngFor="let composant of dataProduit.composantsCombos[0].entree;let j=index"
+                [value]="composant">{{composant.nomproduitcombos}} </ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-item-group>
+
+        <ion-item-group>
+          <ion-item-divider>
+            <ion-label>Pizza</ion-label>
+          </ion-item-divider>
+          <ng-container *ngFor="let choice of stringSequence(this.dataProduit.composantsCombos[0].pizza[0].quantitee);let k=index; ">
+            <ion-item>
+              <ion-label>{{choice}}:</ion-label>
+              <ion-select [(ngModel)]="chosenCombosPizza[k]" (ionChange)="onSelectChangeChosenPizzaCombo(pizza, k)">
+                <ion-select-option *ngFor="let pizza of allPizza;let l=index" [value]="pizza">{{pizza.nomproduit}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ng-container>
+        </ion-item-group>
+
+        <ion-item-group>
+          <ion-item-divider>
+            <ion-label>Boissons</ion-label>
+          </ion-item-divider>
+          <ng-container *ngFor="let choice of stringSequence(this.dataProduit.composantsCombos[0].pizza[0].quantitee);let l=index; ">
+            <ion-item>
+              <ion-label>{{choice}}:</ion-label>
+              <ion-select [(ngModel)]="chosenCombosBoissons[l]" (ionChange)="onSelectChangeChosenBoissonCombo(boisson, l)">
+                <ion-select-option *ngFor="let boisson of allBoissonsSansAlcool;let i=index" [value]="boisson">{{boisson.nomproduit}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ng-container>
+        </ion-item-group>
+        -->
+
+        <!--<ion-item-group>
+          <ion-item-divider>
+            <ion-label class="black-group-subtitle">Entrée</ion-label>
+          </ion-item-divider>
+          <ng-container *ngFor="let choice of stringSequence(this.dataProduit.composantsCombos[0].entree[0].quantitee);let k=index; ">
+          <ion-item class="ion-card-item">
+            <ion-label>{{choice}}:</ion-label>
+            <ion-select [(ngModel)]="chosenCombosEntree[k]">
+              <ion-select-option *ngFor="let composant of dataProduit.composantsCombos[0].entree;let j=index"
+                [value]="composant">{{composant.nomproduitcombos}} </ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ng-container>
+
+        </ion-item-group>-->
+
+        <ion-item-group>
+          <ion-item-divider>
+            <ion-label class="black-group-subtitle">Pizza</ion-label>
+          </ion-item-divider>
+          <ng-container *ngFor="let choice of stringSequenceOffre(this.dataProduit.ComposantsOffres[0].nbreproduitbase ,this.dataProduit.ComposantsOffres[0].nbreproduitoffert);let k=index; ">
+            <ion-item class="ion-card-item">
+              <ion-label>{{choice}}:</ion-label>
+              <!--
+              <ion-select [(ngModel)]="chosenCombosPizza[k]" (ionChange)="onChangePizzaOffre(k)">
+                <ion-select-option *ngFor="let pizza of allPizza;let l=index" [value]="pizza">{{pizza.nomproduit}} 
+                </ion-select-option>
+              </ion-select>
+              -->
+              <ionic-selectable [(ngModel)]="chosenCombosPizza[k]" (onChange)="onChangePizzaOffre(k,$event)"
+                [items] = "allPizza"
+                itemValueField="idproduit"
+                itemTextField="nomproduit"
+                [canSearch]="true">
+              </ionic-selectable>
+            </ion-item>
+
+            <ion-item class="ion-card-item">
+              <ion-label>Taille:</ion-label>
+              <!--{{dataProduit.composantsCombos[0].pizza[0].taille}}-->
+            <!--
+            <ion-select [(ngModel)]="chosenCombosPizzaTaille[k]" (ionChange)="onChangeTaillePizzaOffre(k)" >
+                <ion-select-option *ngFor="let pizzaTaille of currentPizzaTailles;let l=index" value="{{l}}">{{pizzaTaille}} 
+                </ion-select-option>
+            </ion-select>
+            -->
+            <ionic-selectable [(ngModel)]="selectedPizzaTailles[k]" (onChange)="onChangeTaillePizzaOffre(k)"
+              [items] = "currentPizzaTailles"
+              itemValueField="id"
+              itemTextField="name"
+              [canSearch]="true">
+          </ionic-selectable>
+
+          <!-- <ion-label *ngIf="chosenCombosPizza[k]">Prix : {{chosenCombosPizza[k].prixproduit}} CHF</ion-label> -->
+          <ion-label *ngIf="chosenCombosPizzaPrices[k]">Prix : {{chosenCombosPizzaPrices[k]}} CHF</ion-label>
+          <ion-label calss="promo"  [color]="(chosenCombosPizzaPricePromo[k] == true ? 'danger' : 'black' )" *ngIf="chosenCombosPizzaPricePromo[k]" >Promo:  -{{dataProduit.ComposantsOffres[0].remise}}%
+            </ion-label>
+            </ion-item>
+            <ion-item-divider class="item-divider"></ion-item-divider>
+          </ng-container>
+        </ion-item-group>
+
+        <!--<ion-item-group>
+          <ion-item-divider>
+            <ion-label class="black-group-subtitle">Boissons</ion-label>
+          </ion-item-divider>
+          <ng-container *ngFor="let choice of stringSequence(this.dataProduit.composantsCombos[0].boissons[0].quantitee);let l=index; ">
+            <ion-item class="ion-card-item">
+              <ion-label>{{choice}}:</ion-label>
+              <ion-select [(ngModel)]="chosenCombosBoissons[l]">
+                <ion-select-option *ngFor="let boisson of allBoissonsSansAlcool;let i=index" [value]="boisson">{{boisson.nomproduit}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ng-container>
+        </ion-item-group>-->
+
+      </ion-card>
+
+
+
+
+
+
+
+      <!-------------------------------------------------------------
+      ---- Ligne des tailles, garnitures, pates et sauce à pizza ----
+      -------------------------------------------------------------->
+
+
+      <!--Quantité de produit -->
+      <ion-row class="row-quantite-btn-ajouter">
+        <ion-col size="5" size-md="5" size-sm="6" size-xs="12" class="col-quantite">
+          <ion-col size="5">
+            <ion-label>Quantite</ion-label>
+          </ion-col>
+          <ion-col size="7">
+            <div class="add-remove-input">
+              <ion-icon name="remove" class="removequantite" (click)="removeQuantite()"></ion-icon>
+              <ion-input class="inputnumber" [(ngModel)]="quantite" type="number" min="1" max="20"></ion-input>
+              <ion-icon name="add" class="addquantite" (click)="addQuantite()"></ion-icon>
+            </div>
+          </ion-col>
+        </ion-col>
+
+        <ion-col size="3" size-md="3" size-sm="6" size-xs="12" class="col-montant">
+          <ion-col size="5">
+            <ion-label>Total CHF</ion-label>
+          </ion-col>
+          <ion-col size="7">
+            <ion-input [(ngModel)]="prixTotalItem" type="number" readOnly class="input-montant"></ion-input>
+          </ion-col>
+
+        </ion-col>
+
+        <ion-col size="4" size-md="4" size-sm="12" size-xs="12" class="col-btn">
+          <ion-button (click)="ajouterAuPanier()">Ajouter au panier</ion-button>
+        </ion-col>
+
+        <ion-col size="12" size-md="12" size-sm="12" size-xs="12" class="col-btn">
+          <ion-button class="btn-voir-panier" routerLink="/panier">Voir mon panier</ion-button>
+        </ion-col>
+      </ion-row>
+
+
+    </ion-col>
+  </ion-grid>
+
+
+</ion-content>

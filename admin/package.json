@@ -1,0 +1,9 @@
+{
+  "devDependencies": {
+    "@angular/cli": "^16.2.7"
+  },
+  "dependencies": {
+    "-": "^0.0.1",
+    "g": "^2.0.1"
+  }
+}

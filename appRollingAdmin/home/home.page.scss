@@ -1,0 +1,72 @@
+body {
+    font-family: 'lato', sans-serif;
+  }
+
+ion-content{
+  --min-height: 100vh!important;
+  --height: 100vh!important;
+  --background-color: rgb(236, 236, 236);
+  display: flex;
+  flex-direction: column;
+}
+
+.header-wrapper{
+  display: flex;
+  flex-direction: row;
+  color: #b22227;
+  min-height: 50px;
+}
+
+.container {
+  width: 100%;
+  min-width: 100%;
+  //height: 100%;
+  //min-height: 100%;
+  //max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+  //padding-left: 10px;
+  //padding-right: 10px;
+  padding-bottom: 30px;
+
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+  background-color: rgb(236, 236, 236);
+}
+
+.col-liste-commandes{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    border-right: solid 1px black;
+    ion-row{
+        width: 100%;
+    }
+
+    ion-card{
+        min-height: 70px;
+        height: auto;
+        width: 100%;
+        margin-left: 0px;
+        margin-right: 0px;
+        color: black;
+    }
+
+    .card-nouvelle{
+        background: lightskyblue
+    }
+    .card-preparation{
+        background:lightsalmon
+    }
+    .card-a-retirer{
+        background: lightgreen
+    }
+    .card-livraison{
+        background: lightyellow;
+    }
+}
+
+
+

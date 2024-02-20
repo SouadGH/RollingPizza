@@ -1,0 +1,407 @@
+<!-----------------------------------------------------------------------------
+* Script pour l'ajout d'un nouveau produit pour Rolling Pizza
+* Auteur : Helvitech Dev Team - 
+* Date : 29.006.2020
+* * * * * * * * * *
+* Commentaire : 
+*     - Simple formulaire à remplir par l'Admin, avec les informations de base
+*         du nouveau produit à intégrer à la plateforme. 
+------------------------------------------------------------------------------->
+
+<ion-content>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-back-button defaultHref="/listeproduit"></ion-back-button>
+    </ion-buttons>
+    <ion-title></ion-title>
+  </ion-toolbar>
+  <div class="container">
+
+
+    <ion-grid class="new-form">
+      <ion-row class="header-form">
+        <ion-col size="12">Enregistrement d'un produit </ion-col>
+      </ion-row>
+
+      <ion-row class="data-row">
+        <ion-col class="data-row-col" size="12">
+          <ion-row class="label-data-row-col">Produit</ion-row>
+          <ion-row class="input-row">
+            <ion-input class="input-data-row-col" [(ngModel)]="dataNewProduit.nomproduit" type="text"
+              placeholder="Produit"></ion-input>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+
+      <!-- Zone connexion -->
+      <ion-row class="label-data-row-col">Prix </ion-row>
+      <ion-row class="data-row" *ngIf="dataNewProduit.idtypeproduit==1">
+        <ion-grid>
+          <ion-row>
+            <ion-col size="3" class="label-col"></ion-col>
+            <ion-col size="3" class="label-col">Sur Place</ion-col>
+            <ion-col size="3" class="label-col">A emporter</ion-col>
+            <ion-col size="3" class="label-col">Livraison</ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="3" class="data-row-col">Petite</ion-col>
+            <ion-col size="3" class="data-row-col">
+              <ion-input class="input-data-row-col" [(ngModel)]="p_prix_sur_place" type="number"
+                placeholder='{{p_prix_sur_place}}'></ion-input>
+            </ion-col>
+            <ion-col size="3" class="label-col">
+              <ion-input class="input-data-row-col" [(ngModel)]="p_prix_a_emporter" type="number"
+                placeholder='{{p_prix_a_emporter}}'></ion-input>
+            </ion-col>
+            <ion-col size="3" class="label-col">
+              <ion-input class="input-data-row-col" [(ngModel)]="p_prix_livraison" type="number"
+                placeholder='{{p_prix_livraison}}'></ion-input>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="3" class="label-col">Moyenne</ion-col>
+            <ion-col size="3" class="label-col">
+              <ion-input class="input-data-row-col" [(ngModel)]="m_prix_sur_place" type="number"
+                placeholder='{{m_prix_sur_place}}'></ion-input>
+            </ion-col>
+            <ion-col size="3" class="label-col">
+              <ion-input class="input-data-row-col" [(ngModel)]="m_prix_a_emporter" type="number"
+                placeholder='{{m_prix_a_emporter}}'></ion-input>
+            </ion-col>
+            <ion-col size="3" class="label-col">
+              <ion-input class="input-data-row-col" [(ngModel)]="m_prix_livraison" type="number"
+                placeholder='{{m_prix_livraison}}'></ion-input>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="3" class="label-col">Large</ion-col>
+            <ion-col size="3" class="label-col">
+              <ion-input class="input-data-row-col" [(ngModel)]="l_prix_sur_place" type="number"
+                placeholder='{{l_prix_sur_place}}'></ion-input>
+            </ion-col>
+            <ion-col size="3" class="label-col">
+              <ion-input class="input-data-row-col" [(ngModel)]="l_prix_a_emporter" type="number"
+                placeholder='{{l_prix_a_emporter}}'></ion-input>
+            </ion-col>
+            <ion-col size="3" class="label-col">
+              <ion-input class="input-data-row-col" [(ngModel)]="l_prix_livraison" type="number"
+                placeholder='{{l_prix_livraison}}'></ion-input>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-row>
+      <ion-row class="data-row" *ngIf="dataNewProduit.idtypeproduit!=1">
+        <ion-col class="data-row-col" size="12">
+          <ion-row class="label-data-row-col">Prix </ion-row>
+          <ion-row class="input-row" *ngIf="dataNewProduit.idtypeproduit!=1">
+            <ion-input class="input-data-row-col" [(ngModel)]="dataNewProduit.prixproduit" type="number"
+              placeholder="Prix"></ion-input>
+          </ion-row>
+          <!--   test prix pizza-->
+
+          <!--fin test -->
+
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="data-row typecategoriesous-produit">
+        <ion-col class="data-row-col" size="4" size-sm="12" size-xs="12">
+          <ion-row class="label-data-row-col">Catégorie produit</ion-row>
+          <ion-row class="input-row">
+            <ion-select (ionChange)="onChangeCategorie($event,dataNewProduit.idcategorie)" interface="popover"
+              placeholder="Sélectionnez une option" [(ngModel)]="dataNewProduit.idcategorie">
+              <!--<ion-select-option class="alert-wrapper" value="0"></ion-select-option>-->
+              <ion-select-option class="alert-wrapper" *ngFor="let categorie of allCategorieProduit"
+                value="{{categorie.idcategorie}}">
+                {{ categorie.nomcategorie }}</ion-select-option>
+            </ion-select>
+          </ion-row>
+        </ion-col>
+
+        <ion-col class="data-row-col" size="4" size-sm="12" size-xs="12">
+          <ion-row class="label-data-row-col">Type produit</ion-row>
+          <ion-row class="input-row">
+            <ion-select interface="popover" (ionChange)="onChangeTypeProduit($event)"
+              placeholder="Sélectionnez une option" [(ngModel)]="dataNewProduit.idtypeproduit">
+
+              <ion-select-option class="alert-wrapper" *ngFor="let typeproduit of allTypeProduit"
+                value="{{typeproduit.idtypeproduit}}">{{typeproduit.nomtypeproduit}}</ion-select-option>
+            </ion-select>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="data-row " *ngIf="dataNewProduit.idtypeproduit==26">
+        <!--test Combos-->
+        <ion-col class="data-row-col" size="12" size-sm="12" size-xs="12">
+
+          <ion-row class="label-data-row-col">Combos Pizza</ion-row>
+
+          <ion-row class="input-row">
+            <ion-col class="data-col">
+              <ion-label>Taille :</ion-label>
+              <select [(ngModel)]="newtaillePizza" name="newtaillePizza" id="newtaillePizza"
+                (change)="onChangetaillePizzaCombos()">
+                <optgroup *ngFor="let composant of taillepizza; index as j" label='{{composant.categoriecomposant}}'>
+                  <option value={{ingredient.idcomposant}}
+                    *ngFor="let ingredient of composant.listeIngredients; index as k">
+                    {{ingredient.nomcomposant}} </option>
+                </optgroup>
+              </select>
+            </ion-col>
+            <ion-col class="data-col">
+              <ion-label>Quantitée :</ion-label>
+              <ion-input class="input-data-row-col" [(ngModel)]="quantiteePizza"  (change)="onChangeQuantitePizzaCombos()"type="number" min="1" max="10"
+                placeholder='{{quantiteePizza}}'></ion-input>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+
+
+      </ion-row>
+      <!--******************-->
+      <ion-row class="data-row " *ngIf="dataNewProduit.idtypeproduit==26">
+        <!--test Combos-->
+        <ion-col class="data-row-col" size="12" size-sm="12" size-xs="12">
+
+          <ion-row class="label-data-row-col">Combos Boissons</ion-row>
+
+          <ion-row class="input-row">
+            <ion-col class="data-col">
+              <ion-label>Taille :</ion-label>
+              <select [(ngModel)]="newtailleBoisson" name="newtailleBoisson" id="newtailleBoisson"
+                (change)="onChangeBoissonsCombos()">
+                <optgroup *ngFor="let composant of boissonsCombos; index as j"
+                  label='{{ composant.categoriecomposant}}'>
+                  <option value={{ingredient.idcomposant}}
+                    *ngFor="let ingredient of composant.listeIngredients; index as k">
+                    {{ingredient.nomcomposant}} </option>
+                </optgroup>
+              </select>
+            </ion-col>
+            <!--<  <ion-col class="data-col" >
+    <ion-label>Quantitee pizza</ion-label>
+   ion-input class="input-data-row-col" [(ngModel)]="quantiteePizza" type="number"min="1" max="10"
+    placeholder='{{quantiteePizza}}'></ion-input>    
+      </ion-col> -->
+          </ion-row>
+        </ion-col>
+      </ion-row>
+      <!--Entrées-->
+      <ion-row class="data-row" *ngIf="dataNewProduit.idtypeproduit==26">
+        <div class="oneRow mb-2 ">
+          <label class="dark mt-2 mb-0 font-weight-bold w-100 pl-2"> Combos Entées : </label>
+
+          <div *ngFor="let ingredient of  entrees; index as i" class="anItem rounded-30 borderd">
+            <ion-icon name="trash"
+              (click)="deletecomposantEntreeCombos(ingredient.idproduitcombos,i)"></ion-icon>
+            <label class="dark mt-1 mb-1 mr-3"> {{i+1}} {{ingredient.nomproduitcombos}} </label>
+          </div>
+
+          <div class="anItem inputContainer rounded-30 borderd">
+            <label class="dark mt-2 mb-0 font-weight-bold w-100 pl-2"> Ajouter une entrée : </label>
+            <div class="input-group">
+
+              <div class="input-group-prepend">
+                <!--<ion-label for="newcomposant"> le nouveau composant :</ion-label>-->
+                <select [(ngModel)]="newEntreeCombos" name="newEntreeCombos" id="newEntreeCombos"
+                  (change)="onChangeAddEntreeCombos($event)">
+                  <optgroup *ngFor="let cp of allProduitsShop; index as j" label='{{ cp.nomtypeproduit}}'>
+                    <option value={{ingredient.idproduit}} *ngFor="let ingredient of cp.listeproduits; index as k">
+                      {{ingredient.nomproduit}} </option>
+                  </optgroup>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ion-row>
+      <!--fin test combos-->
+      <!--ajout Offre-->
+      <ion-row class="data-row " *ngIf="dataNewProduit.idtypeproduit==27">
+
+        <ion-col class="data-row-col" size="12" size-sm="12" size-xs="12">
+
+          <ion-row class="label-data-row-col">Offre Date</ion-row>
+
+          <ion-row class="input-row">
+            <ion-col class="data-col">
+              <ion-label>Début:</ion-label>
+              <ion-input class="input-data-row-col" [(ngModel)]="detailsOffres[0].debutoffre" type="date"></ion-input>
+            </ion-col>
+
+            <ion-col class="data-col">
+              <ion-label>Fin:</ion-label>
+              <ion-input class="input-data-row-col" [(ngModel)]="detailsOffres[0].finoffre" type="date"></ion-input>
+            </ion-col>
+
+          </ion-row>
+        </ion-col>
+      </ion-row>
+      <ion-row class="data-row " *ngIf="dataNewProduit.idtypeproduit==27">
+
+        <ion-col class="data-row-col" size="12" size-sm="12" size-xs="12">
+
+          <ion-row class="label-data-row-col">Description:</ion-row>
+
+          <ion-row class="input-row">
+            <ion-col class="data-col">
+             
+              <ion-input class="input-data-row-col" [(ngModel)]="detailsOffres[0].descriptionoffre" type="text"></ion-input>
+            </ion-col>
+
+           
+
+          </ion-row>
+        </ion-col>
+      </ion-row>
+      <ion-row class="data-row " *ngIf="dataNewProduit.idtypeproduit==27">
+
+        <ion-col class="data-row-col" size="12" size-sm="12" size-xs="12">
+
+          <ion-row class="label-data-row-col">Nombre de produit de base :</ion-row>
+
+          <ion-row class="input-row">
+            <ion-col class="data-col">
+             
+              <ion-input class="input-data-row-col" [(ngModel)]="detailsOffres[0].nbreproduitbase" type="number"></ion-input>
+            </ion-col>
+
+           
+
+          </ion-row>
+        </ion-col>
+      </ion-row>
+      <ion-row class="data-row " *ngIf="dataNewProduit.idtypeproduit==27">
+
+        <ion-col class="data-row-col" size="12" size-sm="12" size-xs="12">
+
+          <ion-row class="label-data-row-col">Nombre de produit offert :</ion-row>
+
+          <ion-row class="input-row">
+            <ion-col class="data-col">
+             
+              <ion-input class="input-data-row-col" [(ngModel)]="detailsOffres[0].nbreproduitoffert" type="number"></ion-input>
+            </ion-col>
+
+           
+
+          </ion-row>
+        </ion-col>
+      </ion-row>
+      <ion-row class="data-row " *ngIf="dataNewProduit.idtypeproduit==27">
+        <ion-col class="data-row-col" size="12" size-sm="12" size-xs="12">
+
+          <ion-row class="label-data-row-col">Remise:</ion-row>
+
+          <ion-row class="input-row">
+            <ion-col class="data-col">
+              <ion-input class="input-data-row-col" [(ngModel)]="detailsOffres[0].remise" type="number" min="1" max="10" ></ion-input>             
+            </ion-col>
+
+           
+
+          </ion-row>
+        </ion-col>
+      </ion-row>
+      <ion-row class="data-row " *ngIf="dataNewProduit.idtypeproduit==27">
+        <ion-col class="data-row-col" size="12" size-sm="12" size-xs="12">
+
+          <ion-row class="label-data-row-col">type de livraison :</ion-row>
+
+          <ion-row class="input-row">
+            <ion-col class="data-col">
+              <select   interface="popover"  [(ngModel)]="detailsOffres[0].idtypelivraison">
+                <option class="alert-wrapper" *ngFor="let liv of listeTypesLivraison"
+                  value="{{liv.id}}">
+                  {{liv.type}}</option>
+              </select>                     
+            </ion-col>
+
+           
+
+          </ion-row>
+        </ion-col>
+      </ion-row>
+      <ion-row class="data-row " *ngIf="dataNewProduit.idtypeproduit==27">
+        <ion-col class="data-row-col" size="12" size-sm="12" size-xs="12">
+
+          <ion-row class="label-data-row-col">type de produit :</ion-row>
+
+          <ion-row class="input-row">
+            <ion-col class="data-col">
+              <select   interface="popover" [(ngModel)]="detailsOffres[0].idtypeproduitoffre">
+                <option class="alert-wrapper" *ngFor="let typeproduit of allTypeProduits"
+                  value="{{typeproduit.idtypeproduit}}">
+                  {{typeproduit.nomtypeproduit}}</option>
+              </select>
+            </ion-col>
+
+           
+
+          </ion-row>
+        </ion-col>
+      </ion-row>
+      <!--fin ajout Offre-->
+
+      <!--ajouter des ingredients-->
+      <ion-row class="data-row" *ngIf="dataNewProduit.idtypeproduit==1 || dataNewProduit.idtypeproduit==2">  
+        <div class="oneRow mb-2 ">
+          <label class="dark mt-2 mb-0 font-weight-bold w-100 pl-2"> Composants allo: </label>
+          <div *ngFor="let ingredient of allIngredientsProduit; index as i" class="anItem rounded-30 borderd">
+            <ion-icon  name="trash" 
+              (click)="deletecomposant(i)"></ion-icon >
+            <label class="dark mt-1 mb-1 mr-3"> {{i+1}} {{ingredient.nomcomposant}} </label>
+          </div>
+
+          <div class="anItem inputContainer rounded-30 borderd">
+            <label class="dark mt-2 mb-0 font-weight-bold w-100 pl-2"> Ajouter un composant : </label>
+            <div class="input-group">
+
+              <div class="input-group-prepend">
+
+                <!--<ion-label for="newcomposant"> le nouveau composant :</ion-label>-->
+                <select [(ngModel)]="newcomposant" name="newcomposant" id="newcomposant"
+                  (change)="onChangeAddComposant($event)">
+                  <optgroup *ngFor="let cp of allComposants; index as j" label='{{ cp.categoriecomposant}}'>
+                    <option value={{ingredient.idcomposant}} *ngFor="let ingredient of cp.listeIngredients; index as k">
+                      {{ingredient.nomcomposant}} </option>
+                  </optgroup>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ion-row>
+      <ion-row class="data-row ">
+
+       
+ <!--
+          <input type="file" #image (change)="onChangeFile($event)">
+          <button (click)="onClick()"> Modifier</button>
+
+        
+-->
+       <ion-col  class="data-row-col" size="12" size-sm="12" size-xs="12">
+          <ion-row class="label-data-row-col">Image produit</ion-row>
+          
+          <input type="file" #image (change)="onChangeFile($event)" > 
+          
+        </ion-col>
+
+      </ion-row>
+      <!-- Zone boutons  -->
+      <ion-row class="data-row row-buttons">
+        <ion-col class="data-row-col" size="4" size-md="6" size-sm="12" size-xs="12">
+          <ion-button color="success" (click)="addNew()">Confirmer</ion-button>
+        </ion-col>
+        <ion-col class="data-row-col" size="4" size-md="6" size-sm="12" size-xs="12">
+          <ion-button (click)="Annuler()" color="danger"> Annuler</ion-button>
+        </ion-col>
+      </ion-row>
+
+    </ion-grid>
+
+  </div>
+
+</ion-content>

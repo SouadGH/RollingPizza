@@ -1,0 +1,58 @@
+<ion-content [fullscreen]="true" class="content">
+
+  <ion-grid class="main-grid">
+      <ion-row class="main-row">
+          <ion-col size-lg="4" size-xl="4" size-xs="6" size-sm="6" size-md="4" class="col-main-grid" *ngFor="let composant of allComposants">
+              
+              <ion-card (click)="goCategorie(categorie.idcategorie, categorie.nomcategorie)">
+                  
+                  <ion-row class="row-text">
+                      <span> {{composant.categoriecomposant}} </span>
+                  </ion-row>
+                  <ion-row class="table-row-data table-row-data-produits" >
+                    <!--ici rajouter design -->
+            
+                    <ion-col size-lg="4" size-xl="4" size-xs="6" size-sm="6" size-md="4" class="col-main-grid" *ngFor="let ingredient of composant.listeIngredients">
+                            
+                      <ion-card >
+                        
+                       
+            
+                            <ion-row class="row-text">
+                              <span> {{ingredient.nomcomposant}} </span>
+                          </ion-row>
+            
+                          <ion-row class="row-text">
+                            <ion-col size="6" >
+                              <ion-icon (click)="deletetingredient(ingredient.idcomposant)" name="trash-outline" ></ion-icon>
+                             </ion-col>
+                            <ion-col size="6" >
+                              <ion-icon  (click)="updateingredient(ingredient.idcomposant)" name="construct-outline"></ion-icon> 
+                              </ion-col>
+                         
+                            </ion-row> 
+                         
+                   
+            
+                      </ion-card>
+            
+                    </ion-col>  
+                    <!--<ion-col size="1" >
+                      <ion-icon (click)="deletetingredient(ingredient.idcomposant)" name="trash-outline" ></ion-icon>
+                     </ion-col>
+                    <ion-col size="1" >
+                      <ion-icon  (click)="updateingredient(ingredient.idcomposant)" name="construct-outline"></ion-icon> 
+                      </ion-col>
+                 
+                    <ion-col size="8" size-md="8" size-sm="8" size-xs="8">{{ingredient.nomcomposant}}</ion-col>      
+                    <ion-col size="2" size-md="2" size-sm="2" size-xs="2">{{ingredient.prixcomposant}}</ion-col>-->
+                  </ion-row>
+              </ion-card>
+     
+          </ion-col>
+      </ion-row>
+
+
+  </ion-grid>
+
+</ion-content>

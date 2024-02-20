@@ -1,0 +1,522 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <div class="header-content">
+    <!--  <ion-col size="2" class="menu-hamburger">
+        <ion-icon name="menu"></ion-icon>
+      </ion-col>
+      <ion-col size="3" class="first-title">Rolling </ion-col>
+      <ion-col size="2" class="image-header">
+        <img src="../../../assets/icon/logo.png">
+      </ion-col>-->
+      <!--<ion-col size="3" class="second-title">Pizza</ion-col>-->
+      <ion-col *ngIf="demandeur==0" csize="8" >       
+        Particulier    
+      </ion-col>
+      <ion-col *ngIf="demandeur==1" csize="8" >       
+         Partenaire
+     </ion-col>
+      <ion-col size="2" >
+        <img width="5%" height="5%"src="../../../assets/icon/logo.png">
+      </ion-col>
+      <ion-col size="2" class="cart-header">
+        <ion-icon  name="cart" routerLink="/panier"></ion-icon>
+      
+      </ion-col>
+      
+  <!--<ion-fab vertical="top" horizontal="right">
+    <ion-fab-button routerLink="/panier">
+      <ion-icon name="cart"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>-->
+    </div>
+   
+    
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="false">
+
+  <div>
+    <ion-segment scrollable ion-fixed class="segmentTitles" [(ngModel)]="selectedCategorieIdx">
+      <ion-segment-button (click)="changeCategorieProduit(i)" *ngFor="let produit of allProduits; let i = index" [value]="i">
+        {{produit.nomcategorie}}
+      </ion-segment-button>
+  </ion-segment>
+  <ion-segment scrollable ion-fixed class="segmentTitles" [hidden]="showTypeProduit" [(ngModel)]="selectedTypeProduitIdx">
+    <ion-segment-button (click)="changeTypeProduit(j)" *ngFor="let typeproduit of allTypeProduits; let j = index" [value]="j">
+      {{typeproduit.nomtypeproduit}}
+    </ion-segment-button>
+</ion-segment>
+
+    <!--<ion-segment scrollable ion-fixed class="segmentTitles" [(ngModel)]="allProduits">
+      
+      <ion-segment-button scrollable ion-fixed class="segmentTitles" *ngFor="let produit of allProduits" 
+      value="{{produit.listetypesproduits}}">
+        {{produit.nomcategorie}}     
+      </ion-segment-button>
+      <ion-segment-button scrollable ion-fixed class="segmentTitles" *ngFor="let typeproduit of allTypeProduits" value="{{typeproduit.nomtypeproduit}}">
+        {{typeproduit.nomtypeproduit}}
+      </ion-segment-button>
+
+    </ion-segment>-->
+  </div>
+  <div class="segmentsContainer" [ngSwitch]="allProduitFinale">
+
+   
+      <ion-grid class="menu-grid">
+        <ion-row class="menu-grid-row">
+
+          <ion-col class="col-pizza" size="3" size-md="3" size-sm="12" size-xs="12" *ngFor="let produit of allProduitFinale;let i=index" (click)="goDetail(produit)">
+            <div class="col-pizza-content">
+              <ion-row class="col-pizza-row-picture">
+                <img src="../../assets/img/margherita.jpg">
+              </ion-row>
+              <ion-row class="col-pizza-row-title">
+                <h3>{{produit.nomproduit}}</h3>
+              </ion-row>
+              <ion-row class="col-pizza-row-ingredients" *ngIf="produit.composantsproduit;let j=index">
+               <ion-label *ngFor="let composant of produit.composantsproduit"> {{composant.nomcomposant}} ,  </ion-label> 
+              </ion-row>
+              <ion-row  [hidden]="demandeur == 1"*ngIf="idtypeproduit != 1" class="col-pizza-row-price">
+                {{produit.prixproduit}}
+              </ion-row>
+              <!--test prix divers-->
+              <ion-row [hidden]="demandeur == 1" *ngIf="idtypeproduit == 1  && idtypelivraison == 1" class="col-pizza-row-price">
+                {{allProduitFinale[i].listeprix[0].prix_sur_place}}
+              </ion-row>
+              <ion-row  [hidden]="demandeur == 1" *ngIf="idtypeproduit == 1 && idtypelivraison == 2" class="col-pizza-row-price">
+                {{allProduitFinale[i].listeprix[0].prix_a_emporter}}
+              </ion-row>
+              <ion-row  [hidden]="demandeur == 1" *ngIf="idtypeproduit == 1  && idtypelivraison == 3" class="col-pizza-row-price">
+                {{allProduitFinale[i].listeprix[0].prix_livraison}}
+              </ion-row>
+              <!--test prix divers-->
+            </div>
+          </ion-col>
+
+        </ion-row>
+      </ion-grid>
+    
+  </div>
+
+
+  <!--<div class="segmentsContainer" [ngSwitch]="allProduits">
+
+    <div class="childSegment" *ngSwitchCase="'Pizza'">
+      <ion-grid class="menu-grid">
+        <ion-row class="menu-grid-row">
+
+          <ion-col class="col-pizza" size="3" size-md="3" size-sm="12" size-xs="12" *ngFor="let pizza of allPizza" (click)="goDetail(pizza)">
+            <div class="col-pizza-content">
+              <ion-row class="col-pizza-row-picture">
+                <img src="../../assets/img/margherita.jpg">
+              </ion-row>
+              <ion-row class="col-pizza-row-title">
+                <h3>{{pizza.nomproduit}}</h3>
+              </ion-row>
+              <ion-row class="col-pizza-row-ingredients">
+                Mozzarella, Sauce tomate
+              </ion-row>
+              <ion-row class="col-pizza-row-price">
+                {{pizza.prixproduit}}
+              </ion-row>
+            </div>
+          </ion-col>
+
+        </ion-row>
+      </ion-grid>
+    </div>
+
+
+    <div class="childSegment" *ngSwitchCase="'Poulet'">
+      <ion-grid class="menu-grid">
+        <ion-row class="menu-grid-row">
+
+          <ion-col class="col-pizza" size="3" size-md="3" size-sm="12" size-xs="12" *ngFor="let poulet of allPoulet" (click)="goDetail(poulet)">
+            <div class="col-pizza-content">
+              <ion-row class="col-pizza-row-picture">
+                <img src="../../assets/img/Spicy-Tenders-175x175.jpeg">
+              </ion-row>
+              <ion-row class="col-pizza-row-title">
+                <h3>{{poulet.nomproduit}}</h3>
+              </ion-row>
+              <ion-row class="col-pizza-row-ingredients">
+                Mozzarella, Sauce tomate
+              </ion-row>
+              <ion-row class="col-pizza-row-price">
+                {{poulet.prixproduit}}
+              </ion-row>
+            </div>
+          </ion-col>
+
+        </ion-row>
+      </ion-grid>
+    </div>
+
+
+    <div class="childSegment" *ngSwitchCase="'Salades'">
+      <ion-grid class="menu-grid">
+        <ion-row class="menu-grid-row">
+
+          <ion-col class="col-pizza" size="3" size-md="3" size-sm="12" size-xs="12" *ngFor="let salade of allSalades" (click)="goDetail(salade)">
+            <div class="col-pizza-content">
+              <ion-row class="col-pizza-row-picture">
+                <img src="../../assets/img/grecque-175x175.jpeg">
+              </ion-row>
+              <ion-row class="col-pizza-row-title">
+                <h3>{{salade.nomproduit}}</h3>
+              </ion-row>
+              <ion-row class="col-pizza-row-ingredients">
+                Mozzarella, Sauce tomate
+              </ion-row>
+              <ion-row class="col-pizza-row-price">
+                {{salade.prixproduit}}
+              </ion-row>
+            </div>
+          </ion-col>
+
+        </ion-row>
+      </ion-grid>
+    </div>
+
+
+    <div class="childSegment" *ngSwitchCase="'Pain à l\'ail'">
+      <ion-grid class="menu-grid">
+        <ion-row class="menu-grid-row">
+
+          <ion-col class="col-pizza" size="3" size-md="3" size-sm="12" size-xs="12" *ngFor="let painail of allPainAil" (click)="goDetail(painail)">
+            <div class="col-pizza-content">
+              <ion-row class="col-pizza-row-picture">
+                <img src="../../assets/img/Pain-À-Lail-Lardons-175x175.jpg">
+              </ion-row>
+              <ion-row class="col-pizza-row-title">
+                <h3>{{painail.nomproduit}}</h3>
+              </ion-row>
+              <ion-row class="col-pizza-row-ingredients">
+                Mozzarella, Sauce tomate
+              </ion-row>
+              <ion-row class="col-pizza-row-price">
+                {{painail.prixproduit}}
+              </ion-row>
+            </div>
+          </ion-col>
+
+        </ion-row>
+      </ion-grid>
+    </div>
+
+
+    <div class="childSegment" *ngSwitchCase="'Autres'">
+      <ion-grid class="menu-grid">
+        <ion-row class="menu-grid-row">
+
+          <ion-col class="col-pizza" size="3" size-md="3" size-sm="12" size-xs="12" *ngFor="let autre of allAutres" (click)="goDetail(autre)">
+            <div class="col-pizza-content">
+              <ion-row class="col-pizza-row-picture">
+                <img src="../../assets/img/Potatoes-175x175.jpg">
+              </ion-row>
+              <ion-row class="col-pizza-row-title">
+                <h3>{{autre.nomproduit}}</h3>
+              </ion-row>
+              <ion-row class="col-pizza-row-ingredients">
+                Mozzarella, Sauce tomate
+              </ion-row>
+              <ion-row class="col-pizza-row-price">
+                {{autre.prixproduit}}
+              </ion-row>
+            </div>
+          </ion-col>
+
+        </ion-row>
+      </ion-grid>
+    </div>
+
+
+    <div class="childSegment" *ngSwitchCase="'Combos'">
+      <ion-grid class="menu-grid">
+        <ion-row class="menu-grid-row">
+
+          <ion-col class="col-pizza" size="3" size-md="3" size-sm="12" size-xs="12" *ngFor="let combo of allCombos" (click)="goDetail(combo)">
+            <div class="col-pizza-content">
+              <ion-row class="col-pizza-row-picture">
+                <img src="../../assets/img/Pain-À-Lail-Lardons-175x175.jpg">
+              </ion-row>
+              <ion-row class="col-pizza-row-title">
+                <h3>{{combo.nomproduit}}</h3>
+              </ion-row>
+              <ion-row class="col-pizza-row-ingredients">
+                Mozzarella, Sauce tomate
+              </ion-row>
+              <ion-row class="col-pizza-row-price">
+                {{combo.prixproduit}}
+              </ion-row>
+            </div>
+          </ion-col>
+
+        </ion-row>
+      </ion-grid>
+    </div>
+
+
+    <div class="childSegment" *ngSwitchCase="'Desserts'">
+      <ion-grid class="menu-grid">
+        <ion-row class="menu-grid-row">
+
+          <ion-col class="col-pizza" size="3" size-md="3" size-sm="12" size-xs="12" *ngFor="let dessert of allDesserts" (click)="goDetail(dessert)">
+            <div class="col-pizza-content">
+              <ion-row class="col-pizza-row-picture">
+                <img src="../../assets/img/Tiramisu-175x175.jpg">
+              </ion-row>
+              <ion-row class="col-pizza-row-title">
+                <h3>{{dessert.nomproduit}}</h3>
+              </ion-row>
+              <ion-row class="col-pizza-row-ingredients">
+                Mozzarella, Sauce tomate
+              </ion-row>
+              <ion-row class="col-pizza-row-price">
+                {{dessert.prixproduit}}
+              </ion-row>
+            </div>
+          </ion-col>
+
+        </ion-row>
+      </ion-grid>
+    </div>
+
+
+    <div class="childSegment" *ngSwitchCase="'Sauces extra'">
+      <ion-grid class="menu-grid">
+        <ion-row class="menu-grid-row">
+
+          <ion-col class="col-pizza" size="3" size-md="3" size-sm="12" size-xs="12" *ngFor="let sauce of allSauceExtras" (click)="goDetail(sauce)">
+            <div class="col-pizza-content">
+              <ion-row class="col-pizza-row-picture">
+                <img src="../../assets/img/sauce_bbq.jpg">
+              </ion-row>
+              <ion-row class="col-pizza-row-title">
+                <h3>{{sauce.nomproduit}}</h3>
+              </ion-row>
+              <ion-row class="col-pizza-row-ingredients">
+                Mozzarella, Sauce tomate
+              </ion-row>
+              <ion-row class="col-pizza-row-price">
+                {{sauce.prixproduit}}
+              </ion-row>
+            </div>
+          </ion-col>
+
+        </ion-row>
+      </ion-grid>
+    </div>
+
+
+    <div class="childSegment" *ngSwitchCase="'Bières'">
+      <ion-grid class="menu-grid">
+        <ion-row class="menu-grid-row">
+
+          <ion-col class="col-pizza" size="3" size-md="3" size-sm="12" size-xs="12" *ngFor="let biere of allBieres" (click)="goDetail(biere)">
+            <div class="col-pizza-content">
+              <ion-row class="col-pizza-row-picture">
+                <img src="../../assets/img/Heineken-175x175.jpg">
+              </ion-row>
+              <ion-row class="col-pizza-row-title">
+                <h3>{{biere.nomproduit}}</h3>
+              </ion-row>
+              <ion-row class="col-pizza-row-ingredients">
+                Mozzarella, Sauce tomate
+              </ion-row>
+              <ion-row class="col-pizza-row-price">
+                {{biere.prixproduit}}
+              </ion-row>
+            </div>
+          </ion-col>
+
+        </ion-row>
+      </ion-grid>
+    </div>
+
+    <div class="childSegment" *ngSwitchCase="'Boissons'">
+      <ion-grid class="menu-grid">
+        <ion-row class="menu-grid-row">
+
+          <ion-col class="col-pizza" size="3" size-md="3" size-sm="12" size-xs="12" *ngFor="let boisson of allBoissons" (click)="goDetail(boisson)">
+            <div class="col-pizza-content">
+              <ion-row class="col-pizza-row-picture">
+                <img src="../../assets/img/Coca-Cola-175x175.jpg">
+              </ion-row>
+              <ion-row class="col-pizza-row-title">
+                <h3>{{boisson.nomproduit}}</h3>
+              </ion-row>
+              <ion-row class="col-pizza-row-ingredients">
+                Mozzarella, Sauce tomate
+              </ion-row>
+              <ion-row class="col-pizza-row-price">
+                {{boisson.prixproduit}}
+              </ion-row>
+            </div>
+          </ion-col>
+
+        </ion-row>
+      </ion-grid>
+    </div>
+
+
+    <div class="childSegment" *ngSwitchCase="'Roses'">
+      <ion-grid class="menu-grid">
+        <ion-row class="menu-grid-row">
+
+          <ion-col class="col-pizza" size="3" size-md="3" size-sm="12" size-xs="12" *ngFor="let rose of allRoses" (click)="goDetail(rose)">
+            <div class="col-pizza-content">
+              <ion-row class="col-pizza-row-picture">
+                <img src="../../assets/img/Esprit-DOr-175x175.jpg">
+              </ion-row>
+              <ion-row class="col-pizza-row-title">
+                <h3>{{rose.nomproduit}}</h3>
+              </ion-row>
+              <ion-row class="col-pizza-row-ingredients">
+                Mozzarella, Sauce tomate
+              </ion-row>
+              <ion-row class="col-pizza-row-price">
+                {{rose.prixproduit}}
+              </ion-row>
+            </div>
+          </ion-col>
+
+        </ion-row>
+      </ion-grid>
+    </div>
+
+
+    <div class="childSegment" *ngSwitchCase="'Rouge'">
+      <ion-grid class="menu-grid">
+        <ion-row class="menu-grid-row">
+
+          <ion-col class="col-pizza" size="3" size-md="3" size-sm="12" size-xs="12" *ngFor="let rouge of allRouge" (click)="goDetail(rouge)">
+            <div class="col-pizza-content">
+              <ion-row class="col-pizza-row-picture">
+                <img src="../../assets/img/Cahteau-DAigueville-Ac-175x175.jpg">
+              </ion-row>
+              <ion-row class="col-pizza-row-title">
+                <h3>{{rouge.nomproduit}}</h3>
+              </ion-row>
+              <ion-row class="col-pizza-row-ingredients">
+                Mozzarella, Sauce tomate
+              </ion-row>
+              <ion-row class="col-pizza-row-price">
+                {{rouge.prixproduit}}
+              </ion-row>
+            </div>
+          </ion-col>
+
+        </ion-row>
+      </ion-grid>
+    </div>
+
+
+    <div class="childSegment" *ngSwitchCase="'Spiritueux'">
+      <ion-grid class="menu-grid">
+        <ion-row class="menu-grid-row">
+
+          <ion-col class="col-pizza" size="3" size-md="3" size-sm="12" size-xs="12" *ngFor="let spiritueux of allSpiritueux" (click)="goDetail(spiritueux)">
+            <div class="col-pizza-content">
+              <ion-row class="col-pizza-row-picture">
+                <img src="../../assets/img/Whisky-Jack-Daniels-175x175.jpg">
+              </ion-row>
+              <ion-row class="col-pizza-row-title">
+                <h3>{{spiritueux.nomproduit}}</h3>
+              </ion-row>
+              <ion-row class="col-pizza-row-ingredients">
+                Mozzarella, Sauce tomate
+              </ion-row>
+              <ion-row class="col-pizza-row-price">
+                {{spiritueux.prixproduit}}
+              </ion-row>
+            </div>
+          </ion-col>
+
+        </ion-row>
+      </ion-grid>
+    </div>
+
+
+    <div class="childSegment" *ngSwitchCase="'Café'">
+      <ion-grid class="menu-grid">
+        <ion-row class="menu-grid-row">
+
+          <ion-col class="col-pizza" size="3" size-md="3" size-sm="12" size-xs="12" *ngFor="let cafe of allCafe" (click)="goDetail(cafe)">
+            <div class="col-pizza-content">
+              <ion-row class="col-pizza-row-picture">
+                <img src="../../assets/img/cafe.jpg">
+              </ion-row>
+              <ion-row class="col-pizza-row-title">
+                <h3>{{cafe.nomproduit}}</h3>
+              </ion-row>
+              <ion-row class="col-pizza-row-ingredients">
+                Mozzarella, Sauce tomate
+              </ion-row>
+              <ion-row class="col-pizza-row-price">
+                {{cafe.prixproduit}}
+              </ion-row>
+            </div>
+          </ion-col>
+
+        </ion-row>
+      </ion-grid>
+    </div>
+
+
+    <div class="childSegment" *ngSwitchCase="'Petit déjeuner'">
+      <ion-grid class="menu-grid">
+        <ion-row class="menu-grid-row">
+
+          <ion-col class="col-pizza" size="3" size-md="3" size-sm="12" size-xs="12" *ngFor="let petitdejeuner of allPetitDejeuner" (click)="goDetail(petitdejeuner)">
+            <div class="col-pizza-content">
+              <ion-row class="col-pizza-row-picture">
+                <img src="../../assets/img/Pain-À-Lail-Lardons-175x175.jpg">
+              </ion-row>
+              <ion-row class="col-pizza-row-title">
+                <h3>{{petitdejeuner.nomproduit}}</h3>
+              </ion-row>
+              <ion-row class="col-pizza-row-ingredients">
+                Mozzarella, Sauce tomate
+              </ion-row>
+              <ion-row class="col-pizza-row-price">
+                {{petitdejeuner.prixproduit}}
+              </ion-row>
+            </div>
+          </ion-col>
+
+        </ion-row>
+      </ion-grid>
+    </div>
+
+
+    <div class="childSegment" *ngSwitchCase="'Viennoiserie'">
+      <ion-grid class="menu-grid">
+        <ion-row class="menu-grid-row">
+
+          <ion-col class="col-pizza" size="3" size-md="3" size-sm="12" size-xs="12" *ngFor="let viennoiserie of allViennoiserie" (click)="goDetail(viennoiserie)">
+            <div class="col-pizza-content">
+              <ion-row class="col-pizza-row-picture">
+                <img src="../../assets/img/croissant.jpg">
+              </ion-row>
+              <ion-row class="col-pizza-row-title">
+                <h3>{{viennoiserie.nomproduit}}</h3>
+              </ion-row>
+              <ion-row class="col-pizza-row-ingredients">
+                Mozzarella, Sauce tomate
+              </ion-row>
+              <ion-row class="col-pizza-row-price">
+                {{viennoiserie.prixproduit}}
+              </ion-row>
+            </div>
+          </ion-col>
+
+        </ion-row>
+      </ion-grid>
+    </div>
+
+
+  </div>-->
+
+</ion-content>

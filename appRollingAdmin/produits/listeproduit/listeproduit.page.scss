@@ -1,0 +1,122 @@
+/*body {
+    font-family: 'lato', sans-serif;
+  }
+
+ion-content{
+  --min-height: 100vh!important;
+  --height: 100vh!important;
+  --background-color: rgb(236, 236, 236);
+}
+
+.header-wrapper{
+  display: flex;
+  flex-direction: row;
+  color: #b22227;
+}
+*/
+/////
+
+ion-content{
+    --background: black;
+  }
+  .align-text-middle {
+      display: flex;
+      align-items: center;
+      text-align: center;
+  
+  }
+  
+  .header-content{
+      ion-menu-button{
+          //--background:#1b7e0d;
+          color: #1b7e0d;
+      }
+  
+      .image-header img{
+          min-width: 70px;
+      }
+      .cart-header{
+          margin-right: 15px;
+      }
+  }
+  
+  header-livraison{
+    
+      background: black;
+  }
+  
+  search-field {
+      --background: black;
+      --color: white;
+  }
+  
+  ion-segment{
+      // --background: #1b7e0d;
+      --background: #477E09;
+  }
+  ion-segment-button{
+      --color:white;
+      --background-checked:#477E09;
+      --color-checked: white;
+  }
+  
+  .menu-grid{
+      display: flex;
+      color: white;
+  
+      .menu-grid-row{
+          display: flex;
+          width: 100%;
+          flex-direction: row;
+          align-content: space-between ;
+      }
+      .col-pizza{
+          padding: 10px;
+          display: flex;
+          flex-direction: column;
+          
+          .col-pizza-content{
+              background: #1d2326;
+  
+              padding: 10px;
+              height: 280px;
+              .col-pizza-row-title{
+                  font-size: 16px;
+                  text-align: center;
+              }
+          }
+          ion-row{
+              justify-content: center;
+              margin-top: 10px;
+          }
+      
+          .col-pizza-row-picture{
+              img{
+                  border-radius: 50%;
+                  height: 100px;
+                  width: 100px;
+              }
+          }
+      
+          .col-pizza-row-ingredients{
+              font-size: 12px;
+              text-align: center;
+          }
+      }
+  }
+  
+  @media all and(max-width: 769px ){
+      .col-pizza-content{
+          min-height: 310px!important;
+      }
+  }
+  
+  @media all and(min-width: 770px){
+      .col-pizza-content{
+          min-height: 310px;
+      }
+  }
+  
+  
+  
+  

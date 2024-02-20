@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar>
+    <div class="header-content">
+      <ion-col size="9" class="first-title">Votre panier Rolling Pizza </ion-col>
+      <ion-col size="3" class="cart-header">
+        <ion-icon name="arrow-back-outline" routerLink="/tabs/home"></ion-icon>
+      </ion-col>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+				
+							
+															 
+				  
+						   
+				
+
+
+  <ion-grid class="grid-panier">
+    <ion-col class="col-content-panier">
+      
+      <ion-row class="row-product-panier" *ngFor="let article of listeProduits; let i = index ">
+        <ion-col size="4" class="row-product-col-img row-product-panier-col" >
+          <img src="../../assets/img/carnivorebbq.jpg">
+          <p>
+          <span style="float: left;"><ion-icon name="trash"  color="red" (click)="deletearticle(i)"></ion-icon></span>
+         <span style="float: left;">{{article.quantiteproduit}} -{{article.taille}} .  {{article.nomproduit}} </span>
+          </p>
+        </ion-col>
+        <ion-col size="4" class="row-product-col-description row-product-panier-col"
+        >
+        <p  *ngFor="let retirer of article.listeARetirer; let j = index ">
+         <span style="float: left;"><ion-icon name="trash"  color="red" (click)="deleteARetirer(i,j)"></ion-icon></span>
+         <span style="float: left;"> {{retirer.nomcomposant }} </span>        
+         </p>
+        </ion-col>
+        <ion-col size="4" class="row-product-col-description row-product-panier-col"
+        >
+        <p  *ngFor="let supplement of article.listeSupplements; let j = index ">
+         <span style="float: left;"><ion-icon name="trash"  color="red" (click)="deletesupplement(i,j)"></ion-icon></span>
+         <span style="float: left;"> {{supplement.nomcomposant }} </span>
+         <span >{{supplement.prixcomposant }}</span>
+         </p>
+        </ion-col>
+        
+        
+        <!--<ion-col size="2" class="row-product-col-delete row-product-panier-col" >
+          <ion-icon name="trash" (click)="deletearticle(i)"></ion-icon>
+        </ion-col>-->
+      </ion-row>
+		  </ion-col>
+  </ion-grid>
+
+  <ion-footer>
+    <div class="footer-montant">Montant de la commande :  <ion-chip> {{total}} chf </ion-chip></div>
+    <div class="btn-commander">
+      <ion-button outline (click)="commander()"> Passer commande</ion-button>
+																						 
+    </div>
+  </ion-footer>
+
+</ion-content>
